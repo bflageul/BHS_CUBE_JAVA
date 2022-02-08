@@ -47,7 +47,6 @@ CREATE TABLE commande (
     id SERIAL PRIMARY KEY,
     datecommande DATE NOT NULL,
     datelivraison DATE,
-    quantite INT NOT NULL,
     prix NUMERIC NOT NULL
 );
 
@@ -95,6 +94,7 @@ CREATE TABLE article_join_fournisseur (
 CREATE TABLE hist_join_com (
     users INT NOT NULL,
     commande INT NOT NULL,
+    quantite INT NOT NULL,
 	FOREIGN KEY (users) REFERENCES users (id),
 	FOREIGN KEY (commande) REFERENCES commande (id)
 );
