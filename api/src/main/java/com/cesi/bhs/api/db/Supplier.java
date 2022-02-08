@@ -1,4 +1,4 @@
-package db;
+package com.cesi.bhs.api.db;
 /** classe de modele Supplier avec les meme champs de nommage que la db supplier -> fournisseurs  **/
 
  public class Supplier {
@@ -22,8 +22,8 @@ package db;
     return id;
   }
 
-  public String getAddress() {
-    return adress;
+  public Address getAddress() {
+    return address;
   }
 
   public String getName() {
@@ -33,8 +33,8 @@ package db;
     return phone;
   }
    /** setters de Supllier **/
-  public void setAddress(String address) {
-    this.adress = adress;
+  public void setAddress(Address address) {
+    this.address = address;
   }
 
 
