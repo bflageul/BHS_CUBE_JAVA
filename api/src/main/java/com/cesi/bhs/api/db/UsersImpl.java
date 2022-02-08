@@ -1,5 +1,8 @@
 package com.cesi.bhs.api.db;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * User class, this give some basic definitions of a user
  */
@@ -51,4 +54,11 @@ public abstract class UsersImpl implements Users {
   protected void setPassword(String password) {
     this.password = password;
   }
+
+
+  /** public static List<Users> MAP_USERS(RowSet<Users> users) {
+    List<Users> result = new ArrayList<>();
+    users.forEach(result::add);
+    return result;
+  } **/
 }
