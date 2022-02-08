@@ -2,11 +2,17 @@ package com.cesi.bhs.api;
 
 import java.sql.SQLException;
 
-public class DbConn {
+import io.vertx.junit5.VertxExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@ExtendWith(VertxExtension.class)
+public class TestDbConn {
   private final String url = "jdbc:postgresql://localhost/stivedb";
   private final String user = "kroutok";
   private final String password = "pouet";
 
+  @Test
   public static void printSQLException(SQLException ex) {
     for (Throwable e : ex) {
       if (e instanceof SQLException) {
@@ -23,6 +29,3 @@ public class DbConn {
     }
   }
 }
-
-
-
