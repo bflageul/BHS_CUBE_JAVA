@@ -1,6 +1,6 @@
 package com.cesi.bhs.api.db;
 
-public class ClientImpl extends Users implements Client {
+public class ClientImpl extends UsersImpl implements Client {
   private Address address;
   private String mail;
 

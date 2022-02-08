@@ -1,6 +1,6 @@
 package com.cesi.bhs.api.db;
 
-public class EmployeeImpl extends Users{
+public class EmployeeImpl extends UsersImpl {
   private String job;
 
   public String getJob() {

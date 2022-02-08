@@ -1,54 +1,17 @@
 package com.cesi.bhs.api.db;
 
 /**
- * User class, this give some basic definitions of a user
+ * A user is a person, it can be a client or an employee
+ * A user have a way to login in the app.
  */
-public abstract class Users {
-  private int id;
-  private String username;
-  private String lastname;
-  private String firsname;
-  // This is the hashed password
-  // YOU SHOULD NEVER STORE THE PASSWORD AS PLAIN TEXT
-  private String password;
+public interface Users {
+  public int getId();
+  public String getUsername();
+  public String getFirsname();
+  public String getLastname();
 
-  public int getId() {
-    return id;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public String getFirsname() {
-    return firsname;
-  }
-
-  public String getLastname() {
-    return lastname;
-  }
-
-  protected String getPassword() {
-    return password;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public void setFirsname(String firsname) {
-    this.firsname = firsname;
-  }
-
-  public void setLastname(String lastname) {
-    this.lastname = lastname;
-  }
-
-  protected void setPassword(String password) {
-    this.password = password;
-  }
+  public void setId(int id);
+  public void setUsername(String username);
+  public void setFirsname(String firsname);
+  public void setLastname(String lastname);
 }
