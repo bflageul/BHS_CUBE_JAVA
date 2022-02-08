@@ -47,4 +47,8 @@ public class SupplierImpl {
     this.phone = phone;
   }
 
+  public String toString() {
+    return String.format("%s - %s - %s", address, name, phone);
+  }
+
 }
