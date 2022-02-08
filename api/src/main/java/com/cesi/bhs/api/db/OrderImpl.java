@@ -3,28 +3,60 @@ package com.cesi.bhs.api.db;
 import java.sql.Date;
 import java.util.HashMap;
 
-/**
- *  Interface for Order model, associated with client and products models
- */
-public interface OrderImpl {
+public class OrderImpl implements Order {
 
-  public int getId() ;
+  private int id;
+  private Date orderdate;
+  private Date deliverydate;
+  private int price;
+  private Client[] clients;
+  private HashMap<String, Integer> Product;
 
-  public void setId(int id) ;
+  public int getId() {
+    return id;
+  }
 
-  public Date getOrderdate();
+  public void setId(int id) {
+    this.id = id;
+  }
 
-  public void setOrderdate(Date orderdate);
+  public Date getOrderdate() {
+    return orderdate;
+  }
 
-  public Date getDeliverydate();
+  public void setOrderdate(Date orderdate) {
+    this.orderdate = orderdate;
+  }
 
-  public void setDeliverydate(Date deliverydate);
+  public Date getDeliverydate() {
+    return deliverydate;
+  }
 
-  public int getPrice() ;
+  public void setDeliverydate(Date deliverydate) {
+    this.deliverydate = deliverydate;
+  }
 
-  public void setPrice(int price);
+  public int getPrice() {
+    return price;
+  }
 
-  public HashMap<String, Integer> getProduct();
+  public void setPrice(int price) {
+    this.price = price;
+  }
 
-  public void setProduct(HashMap<String, Integer> product);
+  public HashMap<String, Integer> getProduct() {
+    return Product;
+  }
+
+  public void setProduct(HashMap<String, Integer> product) {
+    Product = product;
+  }
+
+  public Client[] getClients() {
+    return clients;
+  }
+
+  public void setClients(Client[] clients) {
+    this.clients = clients;
+  }
 }

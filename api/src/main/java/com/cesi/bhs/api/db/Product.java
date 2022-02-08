@@ -1,101 +1,50 @@
 package com.cesi.bhs.api.db;
 
-import db.Supplier;
-
 import java.sql.Date;
 
-public class Product implements ProductImpl{
+/**
+ * Interface using Product table, associated with Order table informations
+ */
+public interface Product {
+  public int getId() ;
 
-  private int id;
-  private String name;
-  private int stock;
-  private String description;
-  private String type;
-  private String origin;
-  private String medal;
-  private Date birthdate;
-  private String productorname;
-  private db.Supplier[] Supplier;
+  public void setId(int id);
 
+  public String getName();
 
-  public int getId() {
-    return id;
-  }
+  public void setName(String name);
 
-  public void setId(int id) {
-    this.id = id;
-  }
+  public int getStock();
 
-  public String getName() {
-    return name;
-  }
+  public void setStock(int stock);
 
-  public void setName(String name) {
-    this.name = name;
-  }
+  public String getDescription() ;
 
-  public int getStock() {
-    return stock;
-  }
+  public void setDescription(String description);
 
-  public void setStock(int stock) {
-    this.stock = stock;
-  }
+  public String getType();
 
-  public String getDescription() {
-    return description;
-  }
+  public void setType(String type);
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+  public String getOrigin() ;
 
-  public String getType() {
-    return type;
-  }
+  public void setOrigin(String origin) ;
 
-  public void setType(String type) {
-    this.type = type;
-  }
+  public String getMedal() ;
 
-  public String getOrigin() {
-    return origin;
-  }
+  public void setMedal(String medal);
 
-  public void setOrigin(String origin) {
-    this.origin = origin;
-  }
+  public Date getBirthdate() ;
 
-  public String getMedal() {
-    return medal;
-  }
+  public void setBirthdate(Date birthdate);
 
-  public void setMedal(String medal) {
-    this.medal = medal;
-  }
+  public String getProductorname() ;
 
-  public Date getBirthdate() {
-    return birthdate;
-  }
-
-  public void setBirthdate(Date birthdate) {
-    this.birthdate = birthdate;
-  }
-
-  public String getProductorname() {
-    return productorname;
-  }
-
-  public void setProductorname(String productorname) {
-    this.productorname = productorname;
-  }
+  public void setProductorname(String productorname);
 
 
-  public db.Supplier[] getSupplier() {
-    return Supplier;
-  }
+  public Supplier[] getSupplier() ;
 
-  public void setSupplier(db.Supplier[] supplier) {
-    Supplier = supplier;
-  }
+  public void setSupplier(Supplier[] supplier) ;
+
 }
