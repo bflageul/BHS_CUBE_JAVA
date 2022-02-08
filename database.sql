@@ -1,4 +1,4 @@
--- Drop conflicting tables
+-- Drop old tables
 DROP TABLE IF EXISTS article_join_commande;
 DROP TABLE IF EXISTS article_join_fournisseur;
 DROP TABLE IF EXISTS hist_join_com;
@@ -10,27 +10,38 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS article;
 DROP TABLE IF EXISTS adresse;
 
--- Adresses
-CREATE TABLE adresse (
+-- Drop conflicting tables
+DROP TABLE IF EXISTS product_join_order;
+DROP TABLE IF EXISTS product_join_supplier;
+DROP TABLE IF EXISTS orders_join_client;
+DROP TABLE IF EXISTS client;
+DROP TABLE IF EXISTS employee;
+DROP TABLE IF EXISTS supplier;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS address;
+
+-- Addresses
+CREATE TABLE address (
     id SERIAL PRIMARY KEY,
-    codepostal VARCHAR(10) NOT NULL,
-    nomrue VARCHAR(255) NOT NULL,
-    voie VARCHAR(255),
-    pays VARCHAR(255) NOT NULL,
-    ville VARCHAR(255) NOT NULL
+    postcode VARCHAR(10) NOT NULL,
+    street VARCHAR(255) NOT NULL,
+    country VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL
 );
 
--- Articles/Products
-CREATE TABLE article (
+-- Products
+CREATE TABLE product (
     id SERIAL PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
     stock INT NOT NULL,
     description text,
     producttype VARCHAR(255) NOT NULL,
-    provenance VARCHAR(255) NOT NULL,
-    medaille VARCHAR(255),
-    annee DATE NOT NULL,
-    domaine VARCHAR(255) NOT NULL
+    origin VARCHAR(255) NOT NULL,
+    medal VARCHAR(255),
+    birthdate DATE NOT NULL,
+    productorname VARCHAR(255) NOT NULL
 );
 
 -- Users
@@ -42,59 +53,60 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL
 );
 
--- Commands
-CREATE TABLE commande (
+-- Orders
+CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
-    datecommande DATE NOT NULL,
-    datelivraison DATE,
-    prix NUMERIC NOT NULL
+    orderdate DATE NOT NULL,
+    deliverydate DATE,
+    price NUMERIC NOT NULL
 );
 
--- Fournisseurs
-CREATE TABLE fournisseur (
+-- Suppliers
+CREATE TABLE supplier (
     id SERIAL PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL,
-    adresse INT NOT NULL UNIQUE,
-    telephone VARCHAR(20) UNIQUE
+    name VARCHAR(255) NOT NULL,
+    address INT NOT NULL UNIQUE,
+    phone VARCHAR(20) UNIQUE,
+    FOREIGN KEY (address) REFERENCES address (id)
 );
 
 -- Salaries
-CREATE TABLE salarie (
+CREATE TABLE employee (
     users INT NOT NULL UNIQUE,
-    poste VARCHAR(255) NOT NULL,
+    job VARCHAR(255) NOT NULL,
 	FOREIGN KEY (users) REFERENCES users (id)
 );
 
 -- Clients
 CREATE TABLE client (
     users INT NOT NULL UNIQUE,
-    adresse INT NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
+    address INT NOT NULL,
+    mail VARCHAR(255) NOT NULL UNIQUE,
 	FOREIGN KEY (users) REFERENCES users (id),
-	FOREIGN KEY (adresse) REFERENCES adresse (id)
+	FOREIGN KEY (address) REFERENCES address (id)
 );
 
--- With that we can know the articles in a command
-CREATE TABLE article_join_commande (
-    article INT NOT NULL,
-    commande INT NOT NULL,
-	FOREIGN KEY (article) REFERENCES article (id),
-	FOREIGN KEY (commande) REFERENCES commande (id)
+-- With that we can know the products in an order
+CREATE TABLE product_join_order (
+    product INT NOT NULL,
+    orders INT NOT NULL,
+	FOREIGN KEY (product) REFERENCES product (id),
+	FOREIGN KEY (orders) REFERENCES orders (id)
 );
 
--- With this one we know whitch fournisseur have witch article
-CREATE TABLE article_join_fournisseur (
-    article INT NOT NULL,
-    fournisseur INT NOT NULL,
-	FOREIGN KEY (article) REFERENCES article (id),
-	FOREIGN KEY (fournisseur) REFERENCES fournisseur (id)
+-- With this one we know which supplier have witch product
+CREATE TABLE product_join_supplier (
+    product INT NOT NULL,
+    supplier INT NOT NULL,
+	FOREIGN KEY (product) REFERENCES product (id),
+	FOREIGN KEY (supplier) REFERENCES supplier (id)
 );
 
--- This is the historic of commands from the userss
+-- This is the historic of order from the users
 CREATE TABLE hist_join_com (
     users INT NOT NULL,
-    commande INT NOT NULL,
-    quantite INT NOT NULL,
+    orders INT NOT NULL,
+    quantity INT NOT NULL,
 	FOREIGN KEY (users) REFERENCES users (id),
-	FOREIGN KEY (commande) REFERENCES commande (id)
+	FOREIGN KEY (orders) REFERENCES orders (id)
 );
