@@ -1,9 +1,11 @@
 package com.cesi.bhs.api;
 
+import java.sql.SQLException;
+
 public class DbConn {
   private final String url = "jdbc:postgresql://localhost/stivedb";
-  private final String user = "cesi";
-  private final String password = "cesi";
+  private final String user = "kroutok";
+  private final String password = "pouet";
 
   public static void printSQLException(SQLException ex) {
     for (Throwable e : ex) {
