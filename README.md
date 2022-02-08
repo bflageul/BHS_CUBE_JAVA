@@ -7,4 +7,5 @@ Le nom d'utilisateur de la base de données est `cesi` et le mot de passe est `c
 - Code et Commentaires en anglais
 - Respecter les styles de code recomandé par Java
 - Commenter ses fonctions avec Javadoc (pour faire un commentaire /** puis entrée)
+- **On crée une nouvelle branche pour chaque ticket**
 
