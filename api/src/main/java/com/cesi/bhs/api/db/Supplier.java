@@ -22,8 +22,8 @@ package com.cesi.bhs.api.db;
     return id;
   }
 
-  public String getAddress() {
-    return adress;
+  public Address getAddress() {
+    return address;
   }
 
   public String getName() {
@@ -33,8 +33,8 @@ package com.cesi.bhs.api.db;
     return phone;
   }
    /** setters de Supllier **/
-  public void setAddress(String address) {
-    this.adress = adress;
+  public void setAddress(Address address) {
+    this.address = address;
   }
 
 
