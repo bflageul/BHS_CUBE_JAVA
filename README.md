@@ -1,1 +1,4 @@
 # BHS_CUBE_JAVA
+
+L'URI de base de donné doit être `jdbc:postgresql://localhost/stive`.
+Le nom d'utilisateur de la base de donnée est `cesi` et le mot de passe est `cesi`
