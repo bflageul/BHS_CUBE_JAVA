@@ -1,5 +1,9 @@
 package com.cesi.bhs.api.db;
 
+/**
+ * Address is composed by a postcode, a street(number+name of the street),
+ * a country and a city.
+ */
 public interface Address {
 
   public int getId();
