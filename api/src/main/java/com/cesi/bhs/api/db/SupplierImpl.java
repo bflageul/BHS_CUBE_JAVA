@@ -1,22 +1,53 @@
 package com.cesi.bhs.api.db;
+/** classe de modele Supplier avec les meme champs de nommage que la db supplier -> fournisseurs  **/
 
-/** Supplier interface define , Supplier class with his variable , it contains address (Class Address)
- * name, phone, id **/
+public class SupplierImpl {
+  private int id;
+  private String name;
+  private Address address;
+  private String phone;
 
-public interface SupplierImpl {
+  /** constructor de Supplier **/
+
+  public SupplierImpl(int id, String name, Address address, String phone) {
+    this.id = id;
+    this.name = name;
+    this.address = address;
+    this.phone = phone;
+  }
 
   /** getter de supplier **/
 
-  public int getId();
-  public Address getAddress();
-  public String getName();
-  public String getPhone();
+  public int getId() {
+    return id;
+  }
 
+  public Address getAddress() {
+    return address;
+  }
+
+  public String getName() {
+    return name;
+  }
+  public String getPhone() {
+    return phone;
+  }
   /** setters de Supllier **/
+  public void setAddress(Address address) {
+    this.address = address;
+  }
 
-  public void setAddress(Address address);
-  public void setId(int id);
-  public void setName(String name);
-  public void setPhone(String phone);
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
 
 }
