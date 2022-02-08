@@ -1,49 +1,19 @@
 package com.cesi.bhs.api.db;
 
-public class Address {
-  private  int id;
-  private String postcode;
-  private String street;
-  private String country;
-  private String city;
+public interface Address {
 
-  public int getId() {
-    return id;
-  }
+  public int getId();
+  public void setId();
 
-  public void setId(int idAddress){
-    id = idAddress;
-  }
+  public String getPostcode();
+  public void setPostcode();
 
-  public String getPostcode() {
-    return postcode;
-  }
+  public String getStreet();
+  public void setStreet();
 
-  public void setPostcode(String postcodeAddress){
-    postcode = postcodeAddress;
-  }
+  public String getCountry();
+  public void setCountry();
 
-  public String getStreet() {
-    return street;
-  }
-
-  public void setStreet(String streetAddress){
-    street = streetAddress;
-  }
-
-  public String getCountry(){
-    return country;
-  }
-
-  public void setCountry(String countryAddress){
-    country = countryAddress;
-  }
-
-  public String getCity() {
-    return city;
-  }
-
-  public void setCity(String cityAddress){
-    city = cityAddress;
-  }
+  public String getCity();
+  public void setCity();
 }
