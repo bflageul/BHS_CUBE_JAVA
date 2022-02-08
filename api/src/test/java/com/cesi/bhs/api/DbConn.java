@@ -4,8 +4,8 @@ import java.sql.SQLException;
 
 public class DbConn {
   private final String url = "jdbc:postgresql://localhost/stivedb";
-  private final String user = "kroutok";
-  private final String password = "pouet";
+  private final String user = "cesi";
+  private final String password = "cesi";
 
   public static void printSQLException(SQLException ex) {
     for (Throwable e : ex) {
