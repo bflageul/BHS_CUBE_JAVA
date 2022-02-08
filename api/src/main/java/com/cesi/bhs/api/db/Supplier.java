@@ -1,4 +1,4 @@
-package db;
+package com.cesi.bhs.api.db;
 /** classe de modele Supplier avec les meme champs de nommage que la db supplier -> fournisseurs  **/
 
  public class Supplier {
