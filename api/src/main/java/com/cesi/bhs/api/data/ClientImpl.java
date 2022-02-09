@@ -1,4 +1,4 @@
-package com.cesi.bhs.api.db;
+package com.cesi.bhs.api.data;
 
 public class ClientImpl extends UsersImpl implements Client {
   private Address address;

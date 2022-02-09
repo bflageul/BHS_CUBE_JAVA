@@ -1,4 +1,4 @@
-package com.cesi.bhs.api.db;
+package com.cesi.bhs.api.data;
 
 /** Implementation for Supplier ,
  *  and hello Lead Tech**/
