@@ -15,7 +15,7 @@ public class ProductImpl implements Product {
   private String medal;
   private Date birthdate;
   private String productorname;
-  private Supplier[] Supplier;
+  private Supplier[] supplier;
 
 
   public int getId() {
@@ -92,10 +92,23 @@ public class ProductImpl implements Product {
 
 
   public Supplier[] getSupplier() {
-    return Supplier;
+    return supplier;
   }
 
   public void setSupplier(Supplier[] supplier) {
-    Supplier = supplier;
+    supplier = supplier;
   }
+
+ ProductImpl(String name, Integer stock, String description, String type, String origin, String medal, Date birthdate, String productorname, Supplier supplier ){
+    this.name = name;
+    this.stock = stock;
+    this.description = description;
+    this.type = type;
+    this.origin = origin;
+    this.medal = medal;
+    this.birthdate = birthdate;
+    this.productorname = productorname;
+ }
+
+
 }
