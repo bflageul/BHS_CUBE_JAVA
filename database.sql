@@ -20,6 +20,7 @@ DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS address;
+DROP TABLE IF EXISTS orders_join_product;
 
 -- Addresses
 CREATE TABLE address (
@@ -105,7 +106,15 @@ CREATE TABLE product_join_supplier (
 CREATE TABLE orders_join_client (
   users INT NOT NULL,
   orders INT NOT NULL,
-  quantity INT NOT NULL,
 	FOREIGN KEY (users) REFERENCES users (id),
 	FOREIGN KEY (orders) REFERENCES orders (id)
 );
+
+-- This is the list of product and their quantity in an order
+CREATE TABLE orders_join_product (
+  orders INT NOT NULL,
+  product INT NOT NULL,
+  quantity INT NOT NULL,
+  FOREIGN KEY (orders) REFERENCES orders (id)
+  FOREIGN KEY (product) REFERENCES product (id)
+)
