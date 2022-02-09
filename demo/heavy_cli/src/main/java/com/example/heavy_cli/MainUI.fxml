@@ -1,0 +1,24 @@
+
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.heavy_cli.Main"
+            prefHeight="400.0" prefWidth="600.0">
+  <?xml version="1.0" encoding="UTF-8"?>
+
+  <?import javafx.scene.layout.VBox?>
+  <?import javafx.scene.control.Label?>
+  <?import java.util.ArrayList?>
+
+  <VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.heavy_cli.MainController">
+    <Label  fx:id="label1"/>
+    <Label  fx:id="label2"/>
+  </VBox>
+
+</AnchorPane>

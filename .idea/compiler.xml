@@ -6,11 +6,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="heavycli" />
         <module name="api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="api" target="11" />
+      <module name="heavy_cli" target="17" />
+      <module name="heavy_client" target="17" />
+      <module name="heavycli" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
