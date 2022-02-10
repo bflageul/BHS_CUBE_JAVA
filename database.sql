@@ -1,4 +1,5 @@
 -- Drop old tables
+DROP TABLE IF EXISTS product_join_order;
 DROP TABLE IF EXISTS article_join_commande;
 DROP TABLE IF EXISTS article_join_fournisseur;
 DROP TABLE IF EXISTS hist_join_com;
@@ -9,7 +10,6 @@ DROP TABLE IF EXISTS article;
 DROP TABLE IF EXISTS adresse;
 
 -- Drop conflicting tables
-DROP TABLE IF EXISTS product_join_order;
 DROP TABLE IF EXISTS product_join_supplier;
 DROP TABLE IF EXISTS orders_join_client;
 DROP TABLE IF EXISTS orders_join_product;
@@ -83,14 +83,6 @@ CREATE TABLE client (
   mail VARCHAR(255) NOT NULL UNIQUE,
 	FOREIGN KEY (users) REFERENCES users (id),
 	FOREIGN KEY (address) REFERENCES address (id)
-);
-
--- With that we can know the products in an order
-CREATE TABLE product_join_order (
-  product INT NOT NULL,
-  orders INT NOT NULL,
-	FOREIGN KEY (product) REFERENCES product (id),
-	FOREIGN KEY (orders) REFERENCES orders (id)
 );
 
 -- With this one we know which supplier have witch product
