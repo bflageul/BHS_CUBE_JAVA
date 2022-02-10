@@ -14,10 +14,20 @@ public class MainVerticle extends AbstractVerticle {
     // Allow POST requests on all urls
     router.route().handler(BodyHandler.create());
 
-    // Set the routes in the router
-    router.get("/").handler(LoginHandler::getAll);
-    router.post("/login").handler(BodyHandler.create());
-    router.post("/login/register").handler(BodyHandler.create());
+    // -- Set the routes in the router --
+    // Main page
+    router.get("/").handler(routingContext -> {
+      routingContext.response()
+        .putHeader("content-type", "application/json; charset=utf-8")
+        .end("{\n" +
+          "\"body\": \"Welcome on the BHS API, for more information about this please contact BHß Software or NegoSud\",\n" +
+          "\"copyright\": \"BHẞ Software 2022\"\n" +
+          "}");
+    });
+
+    // Authentication Handler routes
+    router.post("/login").handler(AuthenticationHandler::login);
+    router.post("/login/register").handler(AuthenticationHandler::register);
 
     // Serve static resources from the /assets directory
     router.route("/assets/*").handler(StaticHandler.create("assets"));

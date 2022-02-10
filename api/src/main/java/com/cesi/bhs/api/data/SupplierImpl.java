@@ -1,4 +1,4 @@
-package com.cesi.bhs.api.db;
+package com.cesi.bhs.api.data;
 
 /** Implementation for Supplier ,
  *  and hello Lead Tech**/
@@ -8,17 +8,15 @@ public class SupplierImpl {
   private String name;
   private Address address;
   private String phone;
+  private String mail;
 
-
-
-  public SupplierImpl(int id, String name, Address address, String phone) {
+  public SupplierImpl(int id, String name, Address address, String phone, String mail) {
     this.id = id;
     this.name = name;
     this.address = address;
     this.phone = phone;
+    this.mail = mail;
   }
-
-
 
   public int getId() {
     return id;
@@ -32,7 +30,9 @@ public class SupplierImpl {
   public String getPhone() {
     return phone;
   }
-
+  public String getMail() {
+    return mail;
+  }
 
   public void setAddress(Address address) {
     this.address = address;
@@ -45,6 +45,9 @@ public class SupplierImpl {
   }
   public void setPhone(String phone) {
     this.phone = phone;
+  }
+  public void setMail(String mail) {
+    this.mail = mail;
   }
 
   public String toString() {

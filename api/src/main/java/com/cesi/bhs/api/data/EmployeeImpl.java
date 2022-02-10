@@ -1,4 +1,4 @@
-package com.cesi.bhs.api.db;
+package com.cesi.bhs.api.data;
 
 public class EmployeeImpl extends UsersImpl {
   private String job;
