@@ -66,6 +66,7 @@ CREATE TABLE supplier (
   name VARCHAR(255) NOT NULL,
   address INT NOT NULL UNIQUE,
   phone VARCHAR(20) UNIQUE,
+  mail VARCHAR(255) UNIQUE,
   FOREIGN KEY (address) REFERENCES address (id)
 );
 
