@@ -15,9 +15,11 @@ public class MainVerticle extends AbstractVerticle {
     router.route().handler(BodyHandler.create());
 
     // Set the routes in the router
-    router.route("/product").handler(ProductHandler::createOneProduct);
-    router.route("/product/").handler(ProductHandler::getOneProduct);
-    router.route("/product/").handler(ProductHandler::updateOneProduct);
+    router.post("/product").handler(ProductHandler::createOneProduct);
+    router.get("/product/").handler(ProductHandler::getOneProduct);
+    router.put("/product/").handler(ProductHandler::updateOneProduct);
+    router.delete("/product/").handler(ProductHandler::deleteOneProduct);
+    router.get("/products").handler(ProductHandler::getAllProducts)
     // Serve static resources from the /assets directory
     router.route("/assets/*").handler(StaticHandler.create("assets"));
 

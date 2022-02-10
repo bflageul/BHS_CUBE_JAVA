@@ -2,12 +2,13 @@ package com.cesi.bhs.api;
 
 import com.cesi.bhs.api.db.Product;
 import com.cesi.bhs.api.db.ProductImpl;
-
+import java.util.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 public class ProductCrudService {
+
 
 
   public Connection getConnection() {
@@ -52,11 +53,20 @@ public class ProductCrudService {
   }
 
   public static Product findById(Integer id) {
-    return product.findById(id);
+    return products.findById(id);
   }
 
   public static Product update(final Product product){
     product.put(product.getId(), product);
     return product;
+  }
+
+  public void remove(final Integer id){
+    products.remove(id);
+  }
+
+  public static
+  List<Product> getAll(){
+        return products(id);
   }
 }
