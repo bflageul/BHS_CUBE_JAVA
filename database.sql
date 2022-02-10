@@ -1,8 +1,8 @@
 -- Drop old tables
+DROP TABLE IF EXISTS product_join_order;
 DROP TABLE IF EXISTS article_join_commande;
 DROP TABLE IF EXISTS article_join_fournisseur;
 DROP TABLE IF EXISTS hist_join_com;
-DROP TABLE IF EXISTS client;
 DROP TABLE IF EXISTS salarie;
 DROP TABLE IF EXISTS fournisseur;
 DROP TABLE IF EXISTS commande;
@@ -10,9 +10,9 @@ DROP TABLE IF EXISTS article;
 DROP TABLE IF EXISTS adresse;
 
 -- Drop conflicting tables
-DROP TABLE IF EXISTS product_join_order;
 DROP TABLE IF EXISTS product_join_supplier;
 DROP TABLE IF EXISTS orders_join_client;
+DROP TABLE IF EXISTS orders_join_product;
 DROP TABLE IF EXISTS client;
 DROP TABLE IF EXISTS employee;
 DROP TABLE IF EXISTS supplier;
@@ -79,18 +79,10 @@ CREATE TABLE employee (
 -- Clients
 CREATE TABLE client (
   users INT NOT NULL UNIQUE,
-  address INT NOT NULL,
+  address INT NULL,
   mail VARCHAR(255) NOT NULL UNIQUE,
 	FOREIGN KEY (users) REFERENCES users (id),
 	FOREIGN KEY (address) REFERENCES address (id)
-);
-
--- With that we can know the products in an order
-CREATE TABLE product_join_order (
-  product INT NOT NULL,
-  orders INT NOT NULL,
-	FOREIGN KEY (product) REFERENCES product (id),
-	FOREIGN KEY (orders) REFERENCES orders (id)
 );
 
 -- With this one we know which supplier have witch product
@@ -105,7 +97,15 @@ CREATE TABLE product_join_supplier (
 CREATE TABLE orders_join_client (
   users INT NOT NULL,
   orders INT NOT NULL,
-  quantity INT NOT NULL,
 	FOREIGN KEY (users) REFERENCES users (id),
 	FOREIGN KEY (orders) REFERENCES orders (id)
 );
+
+-- This is the list of product and their quantity in an order
+CREATE TABLE orders_join_product (
+  orders INT NOT NULL,
+  product INT NOT NULL,
+  quantity INT NOT NULL,
+  FOREIGN KEY (orders) REFERENCES orders (id),
+  FOREIGN KEY (product) REFERENCES product (id)
+)

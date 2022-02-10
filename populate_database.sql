@@ -1,5 +1,5 @@
 
-TRUNCATE address, client, employee, orders, orders_join_client, product, product_join_order, product_join_supplier, supplier, users RESTART IDENTITY CASCADE;
+TRUNCATE address, client, employee, orders, orders_join_client, orders_join_product, product, product_join_supplier, supplier, users RESTART IDENTITY CASCADE;
 
 
 INSERT INTO product (name,stock,description,producttype,origin,medal,birthdate,productorname) VALUES
@@ -237,16 +237,16 @@ INSERT INTO orders (orderdate,deliverydate,price) VALUES
 
 
 
-INSERT INTO orders_join_client (users,orders,quantity) VALUES
+INSERT INTO orders_join_client (users,orders) VALUES
+('1','1'),
+('4','2');
+
+
+INSERT INTO orders_join_product (orders,product,quantity) VALUES
 ('1','1','5'),
-('4','2','2');
-
-
-
-INSERT INTO product_join_order (product,orders) VALUES
-('5','1'),
-('33','2');
-
+('1','44','5'),
+('1','136','8'),
+('2','5','2');
 
 
 INSERT INTO product_join_supplier (product,supplier) VALUES 
