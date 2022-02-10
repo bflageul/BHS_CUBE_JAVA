@@ -99,7 +99,7 @@ public class ProductImpl implements Product {
     supplier = supplier;
   }
 
- ProductImpl(String name, Integer stock, String description, String type, String origin, String medal, Date birthdate, String productorname, Supplier supplier ){
+ public ProductImpl(String name, Integer stock, String description, String type, String origin, String medal, Date birthdate, String productorname, Supplier supplier){
     this.name = name;
     this.stock = stock;
     this.description = description;
@@ -111,4 +111,6 @@ public class ProductImpl implements Product {
  }
 
 
+  public void put() {
+  }
 }
