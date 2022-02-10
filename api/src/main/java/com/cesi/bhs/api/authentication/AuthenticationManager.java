@@ -1,5 +1,6 @@
 package com.cesi.bhs.api.authentication;
 
+import com.cesi.bhs.api.data.Client;
 import com.cesi.bhs.api.data.Users;
 
 public interface AuthenticationManager {
@@ -18,4 +19,11 @@ public interface AuthenticationManager {
    * @return
    */
   String login(Users user, String password);
+
+  /**
+   * Register a new user of type client
+   * @param client
+   * @return
+   */
+  String register(Client client);
 }

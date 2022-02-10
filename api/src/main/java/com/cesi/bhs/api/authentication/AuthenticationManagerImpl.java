@@ -1,8 +1,10 @@
 package com.cesi.bhs.api.authentication;
 
+import com.cesi.bhs.api.data.Client;
 import com.cesi.bhs.api.data.Users;
 import org.javatuples.Pair;
 
+import java.sql.*;
 import java.time.Instant;
 import java.util.Base64;
 import java.util.Calendar;
@@ -53,13 +55,56 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 
     // Prepare the token string
     StringBuilder tokenBuilder = new StringBuilder();
-    tokenBuilder.append(user.getId()).append(":").append(user.getUsername()).append(":").append(now);
+    tokenBuilder.append(user.getId()).append(":").append(user.getUsername()).append(":").append(now.getTime());
 
     // Encode the token
-    String token = Base64.getEncoder().encode(tokenBuilder.toString().getBytes()).toString();
+    String token = Base64.getEncoder().encodeToString(tokenBuilder.toString().getBytes());
 
     tokenMap.put(token, new Pair<>(user, now));
 
     return token;
+  }
+
+  public String register(Client client) {
+    try {
+      // Check if the username is available
+      Class.forName("org.postgresql.Driver");
+      Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost/stivedb", "cesi", "cesi");
+
+      PreparedStatement checkUsernameQuery = conn.prepareStatement("SELECT * FROM users WHERE (username = ?)");
+      checkUsernameQuery.setString(1, client.getUsername());
+
+      ResultSet usernameResult = checkUsernameQuery.executeQuery();
+      if (usernameResult.next()) {
+        // The username is already in the database
+        return "This Username is already registered";
+      }
+
+      PreparedStatement insertUser = conn.prepareStatement("INSERT INTO users (username, lastname, firstname, password) VALUES (?, ?, ?, ?) RETURNING id");
+      insertUser.setString(1, client.getUsername());
+      insertUser.setString(2, client.getFirsname());
+      insertUser.setString(3, client.getLastname());
+      insertUser.setString(4, client.getPassword());
+
+      ResultSet insertedUserID = insertUser.executeQuery();
+      insertedUserID.next();
+      client.setId(insertedUserID.getInt("id"));
+
+      PreparedStatement insertClient = conn.prepareStatement("INSERT INTO client (users, mail) VALUES (?, ?)");
+      insertClient.setInt(1, client.getId());
+      insertClient.setString(2, client.getMail());
+
+      insertClient.executeUpdate();
+
+      conn.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return "Registration failed, internal server error";
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+      return "Registration failed, internal server error";
+    }
+
+    return "Registration done, please login";
   }
 }

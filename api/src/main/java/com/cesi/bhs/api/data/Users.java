@@ -9,6 +9,7 @@ public interface Users {
   String getUsername();
   String getFirsname();
   String getLastname();
+  String getPassword();
   UsersRight getRight();
 
   void setId(int id);

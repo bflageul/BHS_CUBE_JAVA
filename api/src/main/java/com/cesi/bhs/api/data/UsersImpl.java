@@ -32,7 +32,7 @@ public class UsersImpl implements Users {
     return lastname;
   }
 
-  protected String getPassword() {
+  public String getPassword() {
     return password;
   }
 

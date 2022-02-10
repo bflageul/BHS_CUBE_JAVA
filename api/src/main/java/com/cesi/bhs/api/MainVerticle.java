@@ -24,9 +24,10 @@ public class MainVerticle extends AbstractVerticle {
           "\"copyright\": \"BHẞ Software 2022\"\n" +
           "}");
     });
-    // Login Handler routes
-    router.post("/login").handler(LoginHandler::login);
-    router.post("/login/register").handler(BodyHandler.create());
+
+    // Authentication Handler routes
+    router.post("/login").handler(AuthenticationHandler::login);
+    router.post("/login/register").handler(AuthenticationHandler::register);
 
     // Serve static resources from the /assets directory
     router.route("/assets/*").handler(StaticHandler.create("assets"));
