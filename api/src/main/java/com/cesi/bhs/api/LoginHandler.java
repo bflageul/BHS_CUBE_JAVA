@@ -1,7 +1,7 @@
 package com.cesi.bhs.api;
 
-import com.cesi.bhs.api.authentication.LoginManager;
-import com.cesi.bhs.api.authentication.LoginManagerImpl;
+import com.cesi.bhs.api.authentication.AuthenticationManager;
+import com.cesi.bhs.api.authentication.AuthenticationManagerImpl;
 import com.cesi.bhs.api.authentication.LoginUser;
 import com.cesi.bhs.api.data.Users;
 import com.cesi.bhs.api.data.UsersImpl;
@@ -48,9 +48,9 @@ public class LoginHandler {
         return;
       }
 
-      LoginManager loginManager = new LoginManagerImpl();
+      AuthenticationManager authenticationManager = new AuthenticationManagerImpl();
 
-      String token = loginManager.login(user, loginUser.password);
+      String token = authenticationManager.login(user, loginUser.password);
 
       if (token == "Token creation failed") {
         routingContext.response()

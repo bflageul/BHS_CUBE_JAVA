@@ -2,14 +2,14 @@ package com.cesi.bhs.api.authentication;
 
 import com.cesi.bhs.api.data.Users;
 
-public interface LoginManager {
+public interface AuthenticationManager {
   /**
    * Verify the provided token and check if this user is allowed to work with the context
    * @param token
    * @param context
    * @return
    */
-  boolean checkToken(String token, LoginContext context);
+  boolean checkToken(String token, AuthenticationContext context);
 
   /**
    * Log the user in, generate a token

@@ -9,11 +9,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-public class LoginManagerImpl implements LoginManager{
+public class AuthenticationManagerImpl implements AuthenticationManager {
   // A map with in A. the token, and in B. a pair of User and the creation date of the token
   static private final HashMap<String, Pair<Users, Date>> tokenMap = new HashMap<>();
 
-  public boolean checkToken(String token, LoginContext context) {
+  public boolean checkToken(String token, AuthenticationContext context) {
     Pair<Users, Date> dataPair = tokenMap.get(token);
 
     // If the token does not exist

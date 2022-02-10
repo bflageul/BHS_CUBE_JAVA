@@ -3,7 +3,7 @@ package com.cesi.bhs.api.authentication;
 /**
  * Contexts for the login, we will use that to define the user rights
  */
-public enum LoginContext {
+public enum AuthenticationContext {
   LOGIN,
   REGISTER,
   CREATE_USER,
