@@ -29,6 +29,16 @@ public class MainVerticle extends AbstractVerticle {
     router.post("/login").handler(AuthenticationHandler::login);
     router.post("/login/register").handler(AuthenticationHandler::register);
 
+    // Current User handler routes
+/*    router.get("/user").handler(UserVerticle::getCurrentUser);
+    router.post("/user").handler(UserVerticle::editCurrentUser);
+    // User by id handler routes
+    router.get("/user/<id>").handler(UserVerticle::getUserById);
+    router.put("/user/<id>").handler(UserVerticle::editUserById);
+    router.delete("/user/<id>").handler(UserVerticle::removeUserById);*/
+    // All Users handler routes
+    router.get("/users").handler(UserVerticle::getAllUsers);
+
     // Serve static resources from the /assets directory
     router.route("/assets/*").handler(StaticHandler.create("assets"));
 
