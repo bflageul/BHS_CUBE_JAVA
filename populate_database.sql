@@ -210,8 +210,9 @@ INSERT INTO users (username,lastname,firstname,password) VALUES
 ('BF','Flageul','Benjamin','bf'),
 ('HD','Dumas','Hugo','hd'),
 ('SQ','Quintin','Steven','sq'),
-('SV','Van Zuijlen','Samuel','sv');
-
+('SV','Van Zuijlen','Samuel','sv'),
+('Boss','Duqueine','Gilles','gd'),
+('Fifou','Lon','Paul','pl');
 
 
 INSERT INTO client (users,address,mail) VALUES
@@ -220,6 +221,10 @@ INSERT INTO client (users,address,mail) VALUES
 ('3','6','steven.q@vincesi.fr'),
 ('4','6','samuel.v@vincesi.fr');
 
+
+INSERT INTO employee (users, job) VALUES
+('5','CEO'),
+('6','logistician');
 
 
 INSERT INTO supplier (name,address,phone) VALUES 
