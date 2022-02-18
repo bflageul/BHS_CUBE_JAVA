@@ -2,6 +2,8 @@ package com.cesi.bhs.api;
 
 import com.cesi.bhs.api.db.Product;
 import com.cesi.bhs.api.db.ProductImpl;
+
+import java.sql.Date;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,16 +24,18 @@ public class ProductCrudService {
     return connexion;
   }
 
-  public void save(Product product) {
+  public void add(Product product) {
     try {
-      PreparedStatement pstmt = getConnection().prepareStatement("Insert into Product (name, stock, description, type, origin, medal, productorname) VALUES (?,?,?,?,?,?)");
+      PreparedStatement pstmt = getConnection().prepareStatement("Insert into Product (name, stock, description, type, origin, medal,birthdate, productorname) VALUES (?,?,?,?,?,?,?)");
       pstmt.setString(1, product.getName());
       pstmt.setInt(2, product.getStock());
-      pstmt.setString(3, product.getDescription())
+      pstmt.setString(3, product.getDescription());
       pstmt.setString(4, product.getType());
       pstmt.setString(5, product.getOrigin());
       pstmt.setString(6, product.getMedal());
-      pstmt.setString(7, product.getProductorname());
+      pstmt.setDate(7, (Date) product.getBirthdate());
+      pstmt.setString(8, product.getProductorname());
+      pstmt.executeUpdate();
     } catch (Exception e) {
       System.out.println(e);
 
@@ -39,7 +43,7 @@ public class ProductCrudService {
     }
   }
 
-  public static Product add(ProductImpl product) {
+ /** public static Product add(ProductImpl product) {
     final Integer id = "fr" + System.currentTimeMillis() + "d";
     final Product newproduct = new ProductImpl(id,
       product.getName(),
@@ -68,5 +72,5 @@ public class ProductCrudService {
   public static
   List<Product> getAll(){
         return products(id);
-  }
+  }**/
 }

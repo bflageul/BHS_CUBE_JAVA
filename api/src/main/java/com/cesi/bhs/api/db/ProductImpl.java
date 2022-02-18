@@ -2,7 +2,7 @@ package com.cesi.bhs.api.db;
 
 
 
-import java.sql.Date;
+import java.util.Date;
 
 public class ProductImpl implements Product {
 
@@ -99,7 +99,7 @@ public class ProductImpl implements Product {
     supplier = supplier;
   }
 
- public ProductImpl(String name, Integer stock, String description, String type, String origin, String medal, Date birthdate, String productorname, Supplier supplier){
+ public ProductImpl(String name, Integer stock, String description, String type, String origin, String medal, Date birthdate, String productorname){
     this.name = name;
     this.stock = stock;
     this.description = description;
