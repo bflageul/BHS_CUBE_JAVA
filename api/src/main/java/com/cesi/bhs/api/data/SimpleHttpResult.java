@@ -1,4 +1,4 @@
-package com.cesi.bhs.api;
+package com.cesi.bhs.api.data;
 
 public class SimpleHttpResult {
   public int code;

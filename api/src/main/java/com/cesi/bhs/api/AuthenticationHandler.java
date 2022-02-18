@@ -4,16 +4,15 @@ import com.cesi.bhs.api.authentication.AuthenticationManager;
 import com.cesi.bhs.api.authentication.AuthenticationManagerImpl;
 import com.cesi.bhs.api.authentication.LoginUser;
 import com.cesi.bhs.api.authentication.RegistrationUser;
-import com.cesi.bhs.api.data.Client;
-import com.cesi.bhs.api.data.ClientImpl;
-import com.cesi.bhs.api.data.Users;
-import com.cesi.bhs.api.data.UsersImpl;
+import com.cesi.bhs.api.data.*;
 import io.vertx.core.json.DecodeException;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.RoutingContext;
 
 import java.sql.*;
 import java.util.regex.Pattern;
+
+import static com.cesi.bhs.api.dao.Authentication.getUser;
 
 public class AuthenticationHandler {
   /**
@@ -24,24 +23,7 @@ public class AuthenticationHandler {
     try {
       final LoginUser loginUser = Json.decodeValue(routingContext.getBodyAsString(), LoginUser.class);
 
-      // Get password from database
-      Class.forName("org.postgresql.Driver");
-      Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost/stivedb", "cesi", "cesi");
-
-      PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM users WHERE (username = ?)");
-      preparedStatement.setString(1, loginUser.username);
-
-      ResultSet resultSet = preparedStatement.executeQuery();
-      Users user = new UsersImpl();
-      if (resultSet.next()) {
-        user.setId(resultSet.getInt("id"));
-        user.setUsername(resultSet.getString("username"));
-        user.setFirsname(resultSet.getString("firstname"));
-        user.setLastname(resultSet.getString("lastname"));
-        user.setPasswordHash(resultSet.getString("password"));
-      }
-
-      conn.close();
+      Users user = getUser(loginUser.username);
 
       // If user does not have a password it is considered as disabled
       if (!user.enabled()) {
@@ -75,8 +57,6 @@ public class AuthenticationHandler {
        .setStatusCode(500)
        .putHeader("content-type", "application/json; charset=utf-8")
        .end(Json.encodePrettily(new SimpleHttpResult(500, "Internal server error")));
-    } catch (ClassNotFoundException e) {
-      e.printStackTrace();
     } catch (DecodeException e) {
       e.printStackTrace();
       routingContext.response()
