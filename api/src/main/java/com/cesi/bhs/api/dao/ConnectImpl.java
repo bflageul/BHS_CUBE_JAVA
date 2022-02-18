@@ -35,7 +35,7 @@ public class ConnectImpl implements Connect {
 
     try {
       Class.forName("org.postgresql.Driver");
-      Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost/stivedb", "cesi", "cesi");
+      connexion = DriverManager.getConnection("jdbc:postgresql://localhost/stivedb", "cesi", "cesi");
     } catch (Exception e) {
       System.out.println(e);
     }
