@@ -83,6 +83,12 @@ public class AuthenticationHandler {
        .setStatusCode(400)
        .putHeader("content-type", "application/json; charset=utf-8")
        .end(Json.encodePrettily(new SimpleHttpResult(400, "Invalid JSON")));
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+      routingContext.response()
+       .setStatusCode(400)
+       .putHeader("content-type", "application/json; charset=utf-8")
+       .end(Json.encodePrettily(new SimpleHttpResult(400, "Body is empty")));
     }
   }
 
