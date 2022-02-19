@@ -1,65 +1,33 @@
 package com.cesi.bhs.api;
 
-import com.cesi.bhs.api.authentication.AuthenticationManager;
-import com.cesi.bhs.api.authentication.AuthenticationManagerImpl;
-import com.cesi.bhs.api.data.UsersRight;
-import com.cesi.bhs.api.users.GetAllUsers;
+import com.cesi.bhs.api.users.UsersManagerImpl;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.RoutingContext;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.SQLException;
+import java.util.List;
 
 
 public class UserVerticle {
-  static String dbURL = "jdbc:postgresql://localhost/stivedb";
-  static String username = "cesi";
-  static String password = "cesi";
-
-  static AuthenticationManager currentUser = new AuthenticationManagerImpl();
 
   // Get all users
   public static void getAllUsers(RoutingContext routingContext) {
-    //if (currentUser.checkToken())
-    try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+    List usersManager = null;
+    try {
+      usersManager = UsersManagerImpl.getAllUsers();
 
-      String query = "SELECT users.*, client.address, client.mail, employee.job FROM users LEFT JOIN client ON client.users = id LEFT JOIN employee ON employee.users = id;";
-      Statement statement = conn.createStatement();
-      ResultSet result = statement.executeQuery(query);
-
-      List<GetAllUsers> usersList = new ArrayList<GetAllUsers>();
-
-      while (result.next()) {
-        if (result.getString(8) != null) {
-          GetAllUsers getAllUsers = new GetAllUsers(
-            result.getString(2),
-            result.getString(3),
-            result.getString(4),
-            UsersRight.NORMAL_EMPLOYEE
-          );
-          usersList.add(getAllUsers);
-        } else {
-          GetAllUsers getAllUsers = new GetAllUsers(
-            result.getString(2),
-            result.getString(3),
-            result.getString(4),
-            UsersRight.CLIENT
-          );
-          usersList.add(getAllUsers);
-        }
-      }
+      //if (currentUser.checkToken())
 
       routingContext.response()
         .setStatusCode(200)
         .putHeader("content-type", "application/json; charset=utf-8")
-        .end(Json.encodePrettily(usersList));
+        .end(Json.encodePrettily(usersManager));
       return;
-    } catch (SQLException ex) {
-      ex.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
   }
-}
-
+};
 
 
 /*
