@@ -10,6 +10,10 @@ public class ConnectImpl implements Connect {
    */
   private static Connect instance;
 
+  private ConnectImpl() {
+    //do nothing
+  }
+
   /**
    * Récupère l'instance du service
    *
@@ -20,10 +24,6 @@ public class ConnectImpl implements Connect {
       instance = new ConnectImpl();
     }
     return instance;
-  }
-
-  private ConnectImpl(){
-    //do nothing
   }
 
   @Override
