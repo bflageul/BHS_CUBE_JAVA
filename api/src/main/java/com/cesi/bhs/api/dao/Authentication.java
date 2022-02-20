@@ -3,6 +3,8 @@ package com.cesi.bhs.api.dao;
 import com.cesi.bhs.api.data.Client;
 import com.cesi.bhs.api.data.Users;
 import com.cesi.bhs.api.data.UsersImpl;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +28,8 @@ public class Authentication {
     return true;
   }
 
-  public static Client registerClient(Client client) throws SQLException {
+  @Contract("_ -> param1")
+  public static @NotNull Client registerClient(@NotNull Client client) throws SQLException {
     Connect connect = ConnectImpl.getInstance();
     PreparedStatement insertUser = connect.getConnection().prepareStatement("INSERT INTO users (username, lastname, firstname, password) VALUES (?, ?, ?, ?) RETURNING id");
     insertUser.setString(1, client.getUsername());
@@ -48,7 +51,7 @@ public class Authentication {
     return client;
   }
 
-  public static Users getUser(String username) throws SQLException {
+  public static @NotNull Users getUser(String username) throws SQLException {
     // Get password from database
     Connect connect = ConnectImpl.getInstance();
     PreparedStatement preparedStatement = connect.getConnection().prepareStatement("SELECT * FROM users WHERE (username = ?)");

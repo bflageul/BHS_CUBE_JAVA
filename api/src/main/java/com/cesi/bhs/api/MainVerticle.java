@@ -1,6 +1,8 @@
 package com.cesi.bhs.api;
 
+import com.cesi.bhs.api.data.SimpleHttpResult;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.StaticHandler;
@@ -28,6 +30,18 @@ public class MainVerticle extends AbstractVerticle {
     // Authentication Handler routes
     router.post("/login").handler(AuthenticationHandler::login);
     router.post("/login/register").handler(AuthenticationHandler::register);
+
+    // Demo validation token utilisateur.
+    // On vérifie le token
+    router.get("/login/validate-token").handler(AuthenticationHandler::checkToken);
+    // Puis si le token est bon cette fonction là est appelé
+    router.get("/login/validate-token").handler(routingContext -> {
+      routingContext.response()
+        .setStatusCode(200)
+        .putHeader("content-type", "application/json; charset=utf-8")
+        .end(Json.encodePrettily(new SimpleHttpResult(200, "Yop salut !👋👋👋👋")));
+      return;
+    });
 
     // Serve static resources from the /assets directory
     router.route("/assets/*").handler(StaticHandler.create("assets"));
