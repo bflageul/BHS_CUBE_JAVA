@@ -5,19 +5,23 @@ package com.cesi.bhs.api.data;
  * a country and a city.
  */
 public interface Address {
+  public int getId();
 
-  int getId();
-  void setId();
+  public void setId(int idAddress);
 
-  String getPostcode();
-  void setPostcode();
+  public String getPostcode();
 
-  String getStreet();
-  void setStreet();
+  public void setPostcode(String postcodeAddress);
 
-  String getCountry();
-  void setCountry();
+  public String getStreet();
 
-  String getCity();
-  void setCity();
+  public void setStreet(String streetAddress);
+
+  public String getCountry();
+
+  public void setCountry(String countryAddress);
+
+  public String getCity();
+
+  public void setCity(String cityAddress);
 }
