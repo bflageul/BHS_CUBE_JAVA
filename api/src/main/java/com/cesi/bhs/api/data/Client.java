@@ -7,7 +7,10 @@ package com.cesi.bhs.api.data;
  */
 public interface Client extends Users {
   Address getAddress();
+
   String getMail();
+
   void setAddress(Address address);
+
   void setMail(String mail);
 }

@@ -4,13 +4,13 @@ import java.sql.Date;
 import java.util.HashMap;
 
 /**
- *  Interface for Order model, associated with client and products models
+ * Interface for Order model, associated with client and products models
  */
 public interface Order {
 
-  int getId() ;
+  int getId();
 
-  void setId(int id) ;
+  void setId(int id);
 
   Date getOrderdate();
 
@@ -20,11 +20,15 @@ public interface Order {
 
   void setDeliverydate(Date deliverydate);
 
-  int getPrice() ;
+  int getPrice();
 
   void setPrice(int price);
 
   HashMap<String, Integer> getProduct();
 
   void setProduct(HashMap<String, Integer> product);
+
+  Client[] getClients();
+
+  void setClients(Client[] clients);
 }

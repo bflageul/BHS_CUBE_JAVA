@@ -6,7 +6,7 @@ import java.sql.Date;
  * Interface using Product table, associated with Order table informations
  */
 public interface Product {
-  int getId() ;
+  int getId();
 
   void setId(int id);
 
@@ -18,7 +18,7 @@ public interface Product {
 
   void setStock(int stock);
 
-  String getDescription() ;
+  String getDescription();
 
   void setDescription(String description);
 
@@ -26,25 +26,25 @@ public interface Product {
 
   void setType(String type);
 
-  String getOrigin() ;
+  String getOrigin();
 
-  void setOrigin(String origin) ;
+  void setOrigin(String origin);
 
-  String getMedal() ;
+  String getMedal();
 
   void setMedal(String medal);
 
-  Date getBirthdate() ;
+  Date getBirthdate();
 
   void setBirthdate(Date birthdate);
 
-  String getProductorname() ;
+  String getProductorname();
 
   void setProductorname(String productorname);
 
 
-  Supplier[] getSupplier() ;
+  Supplier[] getSupplier();
 
-  void setSupplier(Supplier[] supplier) ;
+  void setSupplier(Supplier[] supplier);
 
 }
