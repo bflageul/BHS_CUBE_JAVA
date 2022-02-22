@@ -40,7 +40,6 @@ public class MainVerticle extends AbstractVerticle {
         .setStatusCode(200)
         .putHeader("content-type", "application/json; charset=utf-8")
         .end(Json.encodePrettily(new SimpleHttpResult(200, "Yop salut !👋👋👋👋")));
-      return;
     });
 
     // Serve static resources from the /assets directory

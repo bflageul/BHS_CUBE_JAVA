@@ -64,7 +64,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
     if (user.validatePassword(password)) {
       return createToken(user);
     }
-    return "Token creation failed";
+    return "Token creation failed. Invalid password";
   }
 
   @Override
