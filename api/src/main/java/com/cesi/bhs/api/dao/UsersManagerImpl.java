@@ -1,8 +1,7 @@
-package com.cesi.bhs.api.users;
+package com.cesi.bhs.api.dao;
 
-import com.cesi.bhs.api.dao.Connect;
-import com.cesi.bhs.api.dao.ConnectImpl;
 import com.cesi.bhs.api.data.UsersRight;
+import com.cesi.bhs.api.users.GetAllUsers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,9 +11,14 @@ import java.util.List;
 
 //¿¿¿ How to ??? -> implement UserManager interface
 public class UsersManagerImpl {
+  /**
+   * Function rendering a list of all employees and clients registered in database
+   * @param
+   * @return List<GetAllUsers>
+   * @throws SQLException
+   */
   public static List<GetAllUsers> getAllUsers() throws SQLException {
 
-    //if (currentUser.checkToken())
     String query = "SELECT users.*, client.address, client.mail, employee.job FROM users LEFT JOIN client ON client.users = id LEFT JOIN employee ON employee.users = id;";
 
     Connect conn = ConnectImpl.getInstance();

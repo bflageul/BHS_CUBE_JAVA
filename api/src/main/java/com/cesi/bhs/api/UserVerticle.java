@@ -1,6 +1,6 @@
 package com.cesi.bhs.api;
 
-import com.cesi.bhs.api.users.UsersManagerImpl;
+import com.cesi.bhs.api.dao.UsersManagerImpl;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.RoutingContext;
 

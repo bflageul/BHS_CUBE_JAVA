@@ -1,4 +1,6 @@
-package com.cesi.bhs.api.users;
+package com.cesi.bhs.api.dao;
+
+import com.cesi.bhs.api.users.GetAllUsers;
 
 import java.util.List;
 

@@ -32,14 +32,23 @@ public class MainVerticle extends AbstractVerticle {
     router.post("/login/register").handler(AuthenticationHandler::register);
 
 
-    // Current User handler routes
-/*    router.get("/user").handler(UserVerticle::getCurrentUser);
-    router.post("/user").handler(UserVerticle::editCurrentUser);
-    // User by id handler routes
-    router.get("/user/<id>").handler(UserVerticle::getUserById);
-    router.put("/user/<id>").handler(UserVerticle::editUserById);
-    router.delete("/user/<id>").handler(UserVerticle::removeUserById);*/
-    // All Users handler routes
+    /**
+     * Current User handler routes : token must be checked before all actions on current user
+     */
+//    router.get("/user").handler(UserVerticle::getCurrentUser);
+//    router.post("/user").handler(UserVerticle::editCurrentUser);
+
+    /**
+     * User by id handler routes: token must be checked before all actions on specific user
+     */
+//    router.get("/user/<id>").handler(UserVerticle::getUserById);
+//    router.put("/user/<id>").handler(UserVerticle::editUserById);
+//    router.delete("/user/<id>").handler(UserVerticle::removeUserById);
+
+    /**
+     * All Users handler routes : token must be checked before rendering all registered users
+     * */
+    router.get("/users").handler(AuthenticationHandler::checkToken);
     router.get("/users").handler(UserVerticle::getAllUsers);
 
     // Demo validation token utilisateur.
