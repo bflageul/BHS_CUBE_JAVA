@@ -1,35 +1,40 @@
 package com.cesi.bhs.api;
 
-import com.cesi.bhs.api.db.Product;
-import com.cesi.bhs.api.db.ProductImpl;
-import com.cesi.bhs.api.db.RegistrationProduct;
+import static com.cesi.bhs.api.dao.Product.registerProduct;
+
+import com.cesi.bhs.api.data.Product;
+import com.cesi.bhs.api.data.ProductImpl;
+import com.cesi.bhs.api.product.RegistrationProduct;
 import io.vertx.core.json.DecodeException;
 import io.vertx.core.json.Json;
-import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.Date;
-import java.util.List;
+import java.sql.SQLException;
+
 
 public class ProductHandler {
 
   public static void createOneProduct(final RoutingContext routingContext) {
-    ProductCrudService productCrudService = new ProductCrudService();
+
     try {
-      final JsonObject body = Json.decodeValue(routingContext.getBodyAsString(), RegistrationProduct.class);
+      final RegistrationProduct registrationProduct = Json.decodeValue(routingContext.getBodyAsString(), RegistrationProduct.class);
 
 
-      productCrudService.add(product);
+      Product product = new ProductImpl(registrationProduct);
+      product = registerProduct(product);
       routingContext.response()
         .setStatusCode(201)
-        .end();
+        .end(Json.encodePrettily(product));
     } catch (DecodeException e){
       routingContext.response()
         .setStatusCode(400)
+        .putHeader("content-type" , "application/json; charset=utf-8")
+        .end();
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      routingContext.response()
+        .setStatusCode(500)
         .putHeader("content-type" , "application/json; charset=utf-8")
         .end();
 

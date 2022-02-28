@@ -1,6 +1,8 @@
 package com.cesi.bhs.api.data;
 
 
+import com.cesi.bhs.api.product.RegistrationProduct;
+
 import java.util.Date;
 
 public class ProductImpl implements Product {
@@ -116,15 +118,15 @@ public class ProductImpl implements Product {
     supplier = supplier;
   }
 
- public ProductImpl(String name, Integer stock, String description, String type, String origin, String medal, Date birthdate, String productorname){
-    this.name = name;
-    this.stock = stock;
-    this.description = description;
-    this.type = type;
-    this.origin = origin;
-    this.medal = medal;
-    this.birthdate = birthdate;
-    this.productorname = productorname;
+ public ProductImpl(RegistrationProduct registrationProduct){
+    this.name = registrationProduct.name;
+    this.stock = registrationProduct.stock;
+    this.description = registrationProduct.description;
+    this.type = registrationProduct.type;
+    this.origin = registrationProduct.origin;
+    this.medal = registrationProduct.medal;
+    this.birthdate = registrationProduct.birthdate;
+    this.productorname = registrationProduct.productorname;
  }
 
 

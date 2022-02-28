@@ -11,6 +11,14 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="api" target="11" />
+      <module name="heavy_cli" target="17" />
+      <module name="heavy_client" target="17" />
+      <module name="heavycli" target="1.5" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="heavycli" options="--add-exports javafx.controls/com.sun.javafx.scene.control.skin=com.negosud.heavycli" />
+    </option>
   </component>
 </project>

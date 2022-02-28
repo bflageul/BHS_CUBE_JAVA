@@ -1,6 +1,7 @@
 package com.cesi.bhs.api.data;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 /**
  * Interface using Product table, associated with Order table informations
