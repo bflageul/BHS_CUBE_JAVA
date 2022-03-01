@@ -18,6 +18,11 @@ public class ProductImpl implements Product {
   private String productorname;
   private Supplier[] supplier;
 
+  public ProductImpl() {
+
+  }
+
+
   @Override
   public int getId() {
     return id;
@@ -128,6 +133,19 @@ public class ProductImpl implements Product {
     this.birthdate = registrationProduct.birthdate;
     this.productorname = registrationProduct.productorname;
  }
+
+  public ProductImpl(int id,String name, int stock, String description,String type, String origin,  String medal, Date birthdate, String productorname, Supplier[] supplier ){
+    this.id = id;
+    this.name = name;
+    this.stock = stock;
+    this.description = description;
+    this.type = type;
+    this.origin = origin;
+    this.medal = medal;
+    this.birthdate =birthdate;
+    this.productorname = productorname;
+    this.supplier=supplier;
+  }
 
 
   public void put() {

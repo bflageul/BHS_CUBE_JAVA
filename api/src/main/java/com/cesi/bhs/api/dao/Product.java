@@ -1,14 +1,23 @@
 package com.cesi.bhs.api.dao;
 
 import com.cesi.bhs.api.data.Client;
+import com.cesi.bhs.api.data.ProductImpl;
+import com.cesi.bhs.api.data.Supplier;
+import com.cesi.bhs.api.data.SupplierImpl;
+import com.cesi.bhs.api.product.RegistrationProduct;
 import org.jetbrains.annotations.NotNull;
+import java.util.Arrays;
+
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Product {
 
   /**
    * create product
+   *
    * @param product
    * @return
    * @throws SQLException
@@ -32,5 +41,46 @@ public class Product {
     return product;
   }
 
+  public static @NotNull com.cesi.bhs.api.data.Product selectProduct(@NotNull int id) throws SQLException {
+    Connect connect = ConnectImpl.getInstance();
+    PreparedStatement selectProduct = connect.getConnection().prepareStatement("SELECT product.*," +
+      " supplier.id as supplierid," +
+      " supplier.name as suppliername FROM product_join_supplier\n" +
+      "  LEFT JOIN product ON product_join_supplier.product = product.id\n" +
+      "  LEFT JOIN supplier ON product_join_supplier.supplier = supplier.id\n" +
+      "  WHERE product.id = ?;");
 
+    selectProduct.setInt(1, id);
+    ResultSet resultSet =  selectProduct.executeQuery();
+
+   resultSet.next();
+    List<Supplier> suppliers = new ArrayList();
+    suppliers.add(new SupplierImpl(resultSet.getInt("supplierid"),resultSet.getString("suppliername")));
+
+
+
+    ProductImpl product = new ProductImpl();
+    product.setId((resultSet.getInt("id")));
+    product.setName(resultSet.getString("name"));
+    product.setStock(resultSet.getInt("stock"));
+    product.setType(resultSet.getString("producttype"));
+    product.setOrigin(resultSet.getString("origin"));
+    product.setMedal(resultSet.getString("medal"));
+    product.setBirthdate(resultSet.getDate("birthdate"));
+    product.setProductorname(resultSet.getString("productorname"));
+
+    while (resultSet.next()){
+      suppliers.add(new SupplierImpl(resultSet.getInt("supplierid"),resultSet.getString("suppliername")));
+
+    }
+    product.setSupplier(suppliers.toArray(new Supplier[suppliers.size()]));
+
+    return product;
+  }
 }
+/**
+ * read -> on prend un id pour renvoyer un produit , ou bien une liste
+ * delete on prend un id et on supprime un id
+ * update on prend un produit et on update
+ */
+

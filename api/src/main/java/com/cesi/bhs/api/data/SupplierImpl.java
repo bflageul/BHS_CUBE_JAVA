@@ -20,6 +20,12 @@ public class SupplierImpl implements Supplier {
     this.mail = mail;
   }
 
+  public SupplierImpl(int supplierid, String suppliername) {
+
+    this.id = supplierid;
+    this.name = suppliername;
+  }
+
   @Override
   public int getId() {
     return id;

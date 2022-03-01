@@ -19,7 +19,9 @@ public class ProductHandler {
     try {
       final RegistrationProduct registrationProduct = Json.decodeValue(routingContext.getBodyAsString(), RegistrationProduct.class);
 
-
+/**
+ * ici rajouter des test prendre exemple sur AuthenticationHandler : -> si utilité pour les produit .. à définir
+ */
       Product product = new ProductImpl(registrationProduct);
       product = registerProduct(product);
       routingContext.response()
