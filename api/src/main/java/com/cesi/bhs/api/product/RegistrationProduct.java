@@ -10,6 +10,7 @@ public class RegistrationProduct {
   public String type;
   public String origin;
   public String medal;
+  // Date at format Year - Month - Day
   public Date birthdate;
   public String productorname;
 

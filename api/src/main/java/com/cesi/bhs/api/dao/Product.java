@@ -1,23 +1,14 @@
 package com.cesi.bhs.api.dao;
 
 import com.cesi.bhs.api.data.Client;
-import com.cesi.bhs.api.data.ProductImpl;
-import com.cesi.bhs.api.data.Supplier;
-import com.cesi.bhs.api.data.SupplierImpl;
-import com.cesi.bhs.api.product.RegistrationProduct;
 import org.jetbrains.annotations.NotNull;
-import java.util.Arrays;
-
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Product {
 
   /**
    * create product
-   *
    * @param product
    * @return
    * @throws SQLException
