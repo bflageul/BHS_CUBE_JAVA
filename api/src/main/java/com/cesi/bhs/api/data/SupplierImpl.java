@@ -1,5 +1,7 @@
 package com.cesi.bhs.api.data;
 
+import com.cesi.bhs.api.supplier.RegistrationSupplier;
+
 /**
  * Implementation for Supplier ,
  * and hello Lead Tech
@@ -28,6 +30,9 @@ public class SupplierImpl implements Supplier {
 
   public SupplierImpl() {
 
+  }
+
+  public SupplierImpl(RegistrationSupplier registrationSupplier) {
   }
 
   @Override
@@ -87,6 +92,11 @@ public class SupplierImpl implements Supplier {
 
   @Override
   public void setAddress(String address) {
+
+  }
+
+  @Override
+  public void setSupplier(com.cesi.bhs.api.dao.Supplier[] toArray) {
 
   }
 
