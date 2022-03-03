@@ -23,16 +23,18 @@ public class SupplierImpl implements Supplier {
   }
 
   public SupplierImpl(int supplierid, String suppliername) {
-
     this.id = supplierid;
     this.name = suppliername;
   }
 
   public SupplierImpl() {
-
   }
 
   public SupplierImpl(RegistrationSupplier registrationSupplier) {
+    this.address = registrationSupplier.address;
+    this.name = registrationSupplier.name;
+    this.phone = registrationSupplier.phone;
+    this.mail = registrationSupplier.mail;
   }
 
   @Override
@@ -41,23 +43,13 @@ public class SupplierImpl implements Supplier {
   }
 
   @Override
-  public String getAddress() {
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  @Override
+  public Address getAddress() {
     return address;
-  }
-
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  @Override
-  public String getPhone() {
-    return phone;
-  }
-
-  @Override
-  public String getMail() {
-    return mail;
   }
 
   @Override
@@ -66,8 +58,8 @@ public class SupplierImpl implements Supplier {
   }
 
   @Override
-  public void setId(int id) {
-    this.id = id;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -76,28 +68,23 @@ public class SupplierImpl implements Supplier {
   }
 
   @Override
+  public String getPhone() {
+    return phone;
+  }
+
+  @Override
   public void setPhone(String phone) {
     this.phone = phone;
   }
 
   @Override
+  public String getMail() {
+    return mail;
+  }
+
+  @Override
   public void setMail(String mail) {
     this.mail = mail;
-  }
-
-  @Override
-  public void setAddress(Address[] address) {
-
-  }
-
-  @Override
-  public void setAddress(String address) {
-
-  }
-
-  @Override
-  public void setSupplier(com.cesi.bhs.api.dao.Supplier[] toArray) {
-
   }
 
   @Override

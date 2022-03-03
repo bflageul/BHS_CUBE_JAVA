@@ -22,6 +22,8 @@ public class ProductImpl implements Product {
 
   }
 
+  public ProductImpl(int productid, String productname) {
+  }
 
   @Override
   public int getId() {

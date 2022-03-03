@@ -51,7 +51,7 @@ public class Product {
     ResultSet resultSet =  selectProduct.executeQuery();
 
    resultSet.next();
-    List<Supplier> suppliers = new ArrayList();
+    List<SupplierImpl> suppliers = new ArrayList();
     suppliers.add(new SupplierImpl(resultSet.getInt("supplierid"),resultSet.getString("suppliername")));
 
 
@@ -70,7 +70,7 @@ public class Product {
       suppliers.add(new SupplierImpl(resultSet.getInt("supplierid"),resultSet.getString("suppliername")));
 
     }
-    product.setSupplier(suppliers.toArray(new Supplier[suppliers.size()]));
+    product.setSupplier(suppliers.toArray(new SupplierImpl[suppliers.size()]));
 
     return product;
   }

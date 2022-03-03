@@ -1,13 +1,10 @@
 package com.cesi.bhs.api.supplier;
 
-public class RegistrationSupplier {
+import com.cesi.bhs.api.data.Address;
 
-  public String address;
+public class RegistrationSupplier {
+  public Address address;
   public String name;
   public String phone;
   public String mail;
-
-
-
-
 }
