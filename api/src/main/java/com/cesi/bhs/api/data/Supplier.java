@@ -11,7 +11,7 @@ package com.cesi.bhs.api.data;
 public interface Supplier {
   int getId();
 
-  Address getAddress();
+  String getAddress();
 
   String getName();
 
@@ -28,5 +28,13 @@ public interface Supplier {
   void setPhone(String phone);
 
   void setMail(String mail);
+
+
+
+void setAddress(Address[] address);
+
+  void setAddress(String address);
+
+  void setSupplier(com.cesi.bhs.api.dao.Supplier[] toArray);
 }
 

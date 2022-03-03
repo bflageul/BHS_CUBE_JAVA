@@ -5,6 +5,9 @@ package com.cesi.bhs.api.data;
  * a country and a city.
  */
 public interface Address {
+  static void setAddress(Address[] toArray) {
+  }
+
   public int getId();
 
   public void setId(int idAddress);

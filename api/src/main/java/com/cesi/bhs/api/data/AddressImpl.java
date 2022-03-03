@@ -7,7 +7,10 @@ public class AddressImpl implements Address {
   private String country;
   private String city;
 
-  @Override
+    public AddressImpl(int addressid) {
+    }
+
+    @Override
   public int getId() {
     return id;
   }

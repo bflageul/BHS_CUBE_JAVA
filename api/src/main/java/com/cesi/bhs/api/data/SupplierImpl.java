@@ -26,13 +26,17 @@ public class SupplierImpl implements Supplier {
     this.name = suppliername;
   }
 
+  public SupplierImpl() {
+
+  }
+
   @Override
   public int getId() {
     return id;
   }
 
   @Override
-  public Address getAddress() {
+  public String getAddress() {
     return address;
   }
 
@@ -74,6 +78,16 @@ public class SupplierImpl implements Supplier {
   @Override
   public void setMail(String mail) {
     this.mail = mail;
+  }
+
+  @Override
+  public void setAddress(Address[] address) {
+
+  }
+
+  @Override
+  public void setAddress(String address) {
+
   }
 
   @Override

@@ -1,9 +1,15 @@
 package com.cesi.bhs.api.dao;
 
-import com.cesi.bhs.api.data.Client;
+import com.cesi.bhs.api.data.ProductImpl;
+import com.cesi.bhs.api.data.SupplierImpl;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.*;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Product {
 
