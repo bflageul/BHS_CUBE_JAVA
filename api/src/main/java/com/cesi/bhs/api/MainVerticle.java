@@ -42,7 +42,7 @@ public class MainVerticle extends AbstractVerticle {
      * User by id handler routes: token must be checked before all actions on specific user
      */
     router.get("/user/:id").handler(UserVerticle::getUserById);
-//    router.put("/user/<id>").handler(UserVerticle::updateUserById);
+    router.put("/user/:id").handler(UserVerticle::updateUserById);
 //    router.delete("/user/<id>").handler(UserVerticle::removeUserById);
 
     /**
