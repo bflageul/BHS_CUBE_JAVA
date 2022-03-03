@@ -1,9 +1,7 @@
 package com.cesi.bhs.api;
 
-import com.cesi.bhs.api.dao.UsersManagerImpl;
+import com.cesi.bhs.api.dao.Users;
 import com.cesi.bhs.api.data.SimpleHttpResult;
-import com.cesi.bhs.api.data.Users;
-import com.cesi.bhs.api.data.UsersImpl;
 import com.cesi.bhs.api.data.UsersRight;
 import com.cesi.bhs.api.users.UsersDetails;
 import io.vertx.core.json.DecodeException;
@@ -16,17 +14,14 @@ import java.util.List;
 import static com.cesi.bhs.api.users.UsersManagerImpl.checkUsername;
 
 
-public class UserVerticle {
-
+public class UserHandler {
   /**
    * Routed by GET '/users'
-   *
-   * @param routingContext
    */
   public static void getAllUsers(RoutingContext routingContext) {
-    List usersList = null;
+    List<com.cesi.bhs.api.data.Users> usersList;
     try {
-      usersList = UsersManagerImpl.getAllUsers();
+      usersList = Users.getAllUsers();
       routingContext.response()
         .setStatusCode(200)
         .putHeader("content-type", "application/json; charset=utf-8")
@@ -43,25 +38,17 @@ public class UserVerticle {
         .setStatusCode(400)
         .putHeader("content-type", "application/json; charset=utf-8")
         .end(Json.encodePrettily(new SimpleHttpResult(400, "Invalid JSON")));
-    } catch (NullPointerException e) {
-      e.printStackTrace();
-      routingContext.response()
-        .setStatusCode(400)
-        .putHeader("content-type", "application/json; charset=utf-8")
-        .end(Json.encodePrettily(new SimpleHttpResult(400, "Body is empty")));
     }
   }
 
   /**
    * Routed by GET '/user/id'
-   *
-   * @param routingContext
    */
   public static void getUserById(RoutingContext routingContext) {
     try {
-      Users userById = new UsersImpl();
+      com.cesi.bhs.api.data.Users userById;
       int id = Integer.parseInt(routingContext.pathParam("id"));
-      userById = UsersManagerImpl.getUserById(id);
+      userById = Users.getUserById(id);
       routingContext.response()
         .setStatusCode(200)
         .putHeader("content-type", "application/json; charset=utf-8")
@@ -89,10 +76,6 @@ public class UserVerticle {
 
   /**
    * Routed by POST '/user'
-   * CLIENT’s data : {"username": "","firstname":"","lastname":"","password": "", "email":"","postcode":"","street":"a","country":"","city":"","right":""}'
-   * EMPLOYEE’s data : {"username": "","firstname":"","lastname":"","password": "", "job":"","right":""}'
-   *
-   * @param routingContext
    */
   public static void createUser(RoutingContext routingContext) {
     try {
@@ -105,7 +88,7 @@ public class UserVerticle {
           .end(Json.encodePrettily(new SimpleHttpResult(401, "This username already exists. Please try another username.")));
         return;
       }
-      UsersDetails userCreated = UsersManagerImpl.createUser(usersRight, usersDetails);
+      UsersDetails userCreated = Users.createUser(usersRight, usersDetails);
       routingContext.response()
         .setStatusCode(200)
         .putHeader("content-type", "application/json; charset=utf-8")
@@ -133,10 +116,6 @@ public class UserVerticle {
 
   /**
    * Routed by PUT '/user'
-   * CLIENT’s data : {"username": "","firstname":"","lastname":"","password": "", "email":"","postcode":"","street":"a","country":"","city":"","right":""}'
-   * EMPLOYEE’s data : {"username": "","firstname":"","lastname":"","password": "", "job":"","right":""}'
-   *
-   * @param routingContext
    */
   public static void updateUserById(RoutingContext routingContext) {
     try {
@@ -150,7 +129,7 @@ public class UserVerticle {
         return;
       }
       int id = Integer.parseInt(routingContext.pathParam("id"));
-      UsersDetails userUpdated = UsersManagerImpl.updateUserById(id, usersRight, usersDetails);
+      UsersDetails userUpdated = Users.updateUserById(id, usersRight, usersDetails);
       routingContext.response()
         .setStatusCode(200)
         .putHeader("content-type", "application/json; charset=utf-8")
@@ -175,5 +154,5 @@ public class UserVerticle {
         .end(Json.encodePrettily(new SimpleHttpResult(400, "Body is empty")));
     }
   }
-};
+}
 
