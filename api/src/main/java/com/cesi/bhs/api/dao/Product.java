@@ -4,6 +4,7 @@ import com.cesi.bhs.api.data.Client;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Product {
 
@@ -32,22 +33,21 @@ public class Product {
     return product;
   }
 
-  public static @NotNull com.cesi.bhs.api.data.Product selectProduct(@NotNull int id) throws SQLException {
+  public static @NotNull com.cesi.bhs.api.data.Product getOneProduct(@NotNull int id) throws SQLException {
     Connect connect = ConnectImpl.getInstance();
-    PreparedStatement selectProduct = connect.getConnection().prepareStatement("SELECT product.*," +
+    PreparedStatement getOneProduct = connect.getConnection().prepareStatement("SELECT product.*," +
       " supplier.id as supplierid," +
       " supplier.name as suppliername FROM product_join_supplier\n" +
       "  LEFT JOIN product ON product_join_supplier.product = product.id\n" +
       "  LEFT JOIN supplier ON product_join_supplier.supplier = supplier.id\n" +
       "  WHERE product.id = ?;");
 
-    selectProduct.setInt(1, id);
-    ResultSet resultSet =  selectProduct.executeQuery();
+    getOneProduct.setInt(1, id);
+    ResultSet resultSet = getOneProduct.executeQuery();
 
-   resultSet.next();
+    resultSet.next();
     List<Supplier> suppliers = new ArrayList();
-    suppliers.add(new SupplierImpl(resultSet.getInt("supplierid"),resultSet.getString("suppliername")));
-
+    suppliers.add(new SupplierImpl(resultSet.getInt("supplierid"), resultSet.getString("suppliername")));
 
 
     ProductImpl product = new ProductImpl();
@@ -60,15 +60,41 @@ public class Product {
     product.setBirthdate(resultSet.getDate("birthdate"));
     product.setProductorname(resultSet.getString("productorname"));
 
-    while (resultSet.next()){
-      suppliers.add(new SupplierImpl(resultSet.getInt("supplierid"),resultSet.getString("suppliername")));
+    while (resultSet.next()) {
+      suppliers.add(new SupplierImpl(resultSet.getInt("supplierid"), resultSet.getString("suppliername")));
 
     }
     product.setSupplier(suppliers.toArray(new Supplier[suppliers.size()]));
 
     return product;
   }
-}
+
+  public static @NotNull com.cesi.bhs.api.data.Product deleteProduct(@NotNull int id) throws SQLException {
+    Connect connect = ConnectImpl.getInstance();
+    PreparedStatement deleteProduct = connect.getConnection().prepareStatement("DELETE FROM Product WHERE id= ?"
+      DeleteProduct.SetInt(1, product.getId);
+    ResultSet resultSet = DeleteProduct.executeQuery();
+    resultSet.next();
+    return product;
+  }
+
+  public static @NotNull com.cesi.bhs.api.data.Supplier updateProduct(@NotNull com.cesi.bhs.api.data.Supplier product) throws SQLException {
+    Connect connect = ConnectImpl.getInstance();
+    PreparedStatement UpdateProduct = connect.getConnection().prepareStatement("UPDATE Product (name, stock, producttype, origin, medal, birthdate, productorename) VALUES (?,?,?,?,?,?,?) RETURNING id");
+    UpdateProduct.setString(1,product.getName());
+    UpdateProduct.setString(2, product.getStock());
+    UpdateProduct.setString(3, product.getProducttype());
+    UpdateProduct.setString(4, product.getOrigin());
+    UpdateProduct.setString(4, product.getMedal();
+    UpdateProduct.setString(4, product.getBirthdate();
+    UpdateProduct.setString(4, product.getProductorname());;
+    ResultSet resultSet =  UpdateProduct.executeQuery();
+    resultSet.next();
+    product.setId(resultSet.getInt("id"));
+
+  }
+
+
 /**
  * read -> on prend un id pour renvoyer un produit , ou bien une liste
  * delete on prend un id et on supprime un id

@@ -40,6 +40,10 @@ public class ProductHandler {
 
     }
   }
+
+  public static void getAllProducts (@NotNull RoutingContext routingContext) {}
+
+  public static void deleteOneProduct (@NotNull RoutingContext routingContext){}
 }
 
 
