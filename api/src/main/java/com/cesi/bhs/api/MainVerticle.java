@@ -31,10 +31,30 @@ public class MainVerticle extends AbstractVerticle {
     router.post("/login").handler(AuthenticationHandler::login);
     router.post("/login/register").handler(AuthenticationHandler::register);
 
+
+    /**
+     * Current User handler routes : token must be checked before all actions on current user
+     */
+//    router.get("/user").handler(UserVerticle::getCurrentUser);
+    router.post("/user").handler(UserHandler::createUser);
+
+    /**
+     * User by id handler routes: token must be checked before all actions on specific user
+     */
+    router.get("/user/:id").handler(UserHandler::getUserById);
+    router.put("/user/:id").handler(UserHandler::updateUserById);
+//    router.delete("/user/<id>").handler(UserVerticle::removeUserById);
+
+    /**
+     * All Users handler routes : token must be checked before rendering all registered users
+     * */
+//    router.get("/users").handler(AuthenticationHandler::checkToken);
+    router.get("/users").handler(UserHandler::getAllUsers);
+
     // Demo validation token utilisateur.
     // On vérifie le token
     router.get("/login/validate-token").handler(AuthenticationHandler::checkToken);
-    // Puis si le token est bon cette fonction là est appelé
+    // Puis si le token est bon cette fonction là est appelée
     router.get("/login/validate-token").handler(routingContext -> {
       routingContext.response()
         .setStatusCode(200)

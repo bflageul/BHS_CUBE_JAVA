@@ -1,14 +1,3 @@
--- Drop old tables
-DROP TABLE IF EXISTS product_join_order;
-DROP TABLE IF EXISTS article_join_commande;
-DROP TABLE IF EXISTS article_join_fournisseur;
-DROP TABLE IF EXISTS hist_join_com;
-DROP TABLE IF EXISTS salarie;
-DROP TABLE IF EXISTS fournisseur;
-DROP TABLE IF EXISTS commande;
-DROP TABLE IF EXISTS article;
-DROP TABLE IF EXISTS adresse;
-
 -- Drop conflicting tables
 DROP TABLE IF EXISTS product_join_supplier;
 DROP TABLE IF EXISTS orders_join_client;
@@ -34,7 +23,7 @@ CREATE TABLE address (
 CREATE TABLE product (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  stock INT NOT NULL,
+  stock INT NULL,
   description text,
   producttype VARCHAR(255) NOT NULL,
   origin VARCHAR(255) NOT NULL,
@@ -74,7 +63,7 @@ CREATE TABLE supplier (
 CREATE TABLE employee (
   users INT NOT NULL UNIQUE,
   job VARCHAR(255) NOT NULL,
-	FOREIGN KEY (users) REFERENCES users (id)
+	FOREIGN KEY (users) REFERENCES users (id) ON DELETE CASCADE
 );
 
 -- Clients
@@ -82,8 +71,8 @@ CREATE TABLE client (
   users INT NOT NULL UNIQUE,
   address INT NULL,
   mail VARCHAR(255) NOT NULL UNIQUE,
-	FOREIGN KEY (users) REFERENCES users (id),
-	FOREIGN KEY (address) REFERENCES address (id)
+	FOREIGN KEY (users) REFERENCES users (id) ON DELETE CASCADE,
+	FOREIGN KEY (address) REFERENCES address (id) ON DELETE CASCADE
 );
 
 -- With this one we know which supplier have witch product
@@ -96,7 +85,7 @@ CREATE TABLE product_join_supplier (
 
 -- This is the historic of order from the users
 CREATE TABLE orders_join_client (
-  users INT NOT NULL,
+  users INT NULL,
   orders INT NOT NULL,
 	FOREIGN KEY (users) REFERENCES users (id),
 	FOREIGN KEY (orders) REFERENCES orders (id)

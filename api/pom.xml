@@ -17,7 +17,7 @@
     <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
 
     <vertx.version>4.2.4</vertx.version>
-    <junit-jupiter.version>5.7.0</junit-jupiter.version>
+    <junit-jupiter.version>5.8.2</junit-jupiter.version>
 
     <main.verticle>com.cesi.bhs.api.MainVerticle</main.verticle>
     <launcher.class>io.vertx.core.Launcher</launcher.class>
@@ -61,7 +61,7 @@
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.3.1</version>
+      <version>42.3.2</version>
     </dependency>
     <dependency>
       <groupId>com.kosprov.jargon2</groupId>
