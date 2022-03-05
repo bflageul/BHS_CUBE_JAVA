@@ -1,16 +1,39 @@
 package com.cesi.bhs.api.data;
 
-import java.sql.Date;
+import com.cesi.bhs.api.orders.CreateOrder;
+
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class OrderImpl implements Order {
-
   private int id;
   private Date orderdate;
   private Date deliverydate;
   private int price;
-  private Client[] clients;
-  private HashMap<String, Integer> Product;
+  private Client client;
+  private HashMap<Integer, Integer> product;
+
+  public OrderImpl(int id, Date orderdate, Date deliverydate, int price, Client client, HashMap<Integer, Integer> productQuantity) {
+    this.id = id;
+    this.orderdate = orderdate;
+    this.deliverydate = deliverydate;
+    this.price = price;
+    this.client = client;
+    this.product = productQuantity;
+  }
+
+  public OrderImpl(CreateOrder createOrder) {
+    this.orderdate = new Date();
+    this.price = 0;
+
+    for (Map.Entry<Integer, Integer> integerIntegerEntry : createOrder.product.entrySet()) {
+      this.price += integerIntegerEntry.getValue();
+    }
+
+    this.client = createOrder.client;
+    this.product = createOrder.product;
+  }
 
   @Override
   public int getId() {
@@ -53,22 +76,22 @@ public class OrderImpl implements Order {
   }
 
   @Override
-  public HashMap<String, Integer> getProduct() {
-    return Product;
+  public HashMap<Integer, Integer> getProduct() {
+    return product;
   }
 
   @Override
-  public void setProduct(HashMap<String, Integer> product) {
-    Product = product;
+  public void setProduct(HashMap<Integer, Integer> product) {
+    this.product = product;
   }
 
   @Override
-  public Client[] getClients() {
-    return clients;
+  public Client getClient() {
+    return client;
   }
 
   @Override
-  public void setClients(Client[] clients) {
-    this.clients = clients;
+  public void setClients(Client clients) {
+    this.client = clients;
   }
 }

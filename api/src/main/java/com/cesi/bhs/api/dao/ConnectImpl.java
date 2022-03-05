@@ -27,9 +27,6 @@ public class ConnectImpl implements Connect {
   }
 
   @Override
-  /**
-   * @see Connect#getConnection()
-   */
   public Connection getConnection() {
     Connection connexion = null;
 
@@ -37,7 +34,7 @@ public class ConnectImpl implements Connect {
       Class.forName("org.postgresql.Driver");
       connexion = DriverManager.getConnection("jdbc:postgresql://localhost/stivedb", "cesi", "cesi");
     } catch (Exception e) {
-      System.out.println(e);
+      e.printStackTrace();
     }
 
     return connexion;

@@ -1,6 +1,6 @@
 package com.cesi.bhs.api.data;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -24,11 +24,11 @@ public interface Order {
 
   void setPrice(int price);
 
-  HashMap<String, Integer> getProduct();
+  HashMap<Integer, Integer> getProduct();
 
-  void setProduct(HashMap<String, Integer> product);
+  void setProduct(HashMap<Integer, Integer> product);
 
-  Client[] getClients();
+  Client getClient();
 
-  void setClients(Client[] clients);
+  void setClients(Client clients);
 }
