@@ -1,6 +1,4 @@
-
 TRUNCATE address, client, employee, orders, orders_join_client, orders_join_product, product, product_join_supplier, supplier, users RESTART IDENTITY CASCADE;
-
 
 INSERT INTO product (name,stock,description,producttype,origin,medal,birthdate,productorname) VALUES
 ('Classic','1','Sec','Blanc','Société Civile Viticole Chateau du Tariquet','','01/01/2020','La Plaine Tariquet '),
@@ -193,18 +191,24 @@ INSERT INTO product (name,stock,description,producttype,origin,medal,birthdate,p
 ('Uby Armagnac Medium','1','Bas-Armagnac','Armagnac','Distribution du Domaine d''Uby','','01/01/2017','Domaine UBY'),
 ('Uby Armagnac Long','1','Bas-Armagnac','Armagnac','Distribution du Domaine d''Uby','','01/01/2010','Domaine UBY'),
 ('Uby Armagnac XO','1','Bas-Armagnac','Armagnac','Distribution du Domaine d''Uby','','01/01/2020','Domaine UBY'),
-('Uby Armagnac oak','1','Bas-Armagnac','Armagnac','Distribution du Domaine d''Uby','','01/01/2020','Domaine UBY');
+('Uby Armagnac oak','1','Bas-Armagnac','Armagnac','Distribution du Domaine d''Uby','','01/01/2020','Domaine UBY'),
+('Petrus','4','Le Petrus 1947 est le vin le plus décadent du siècle. Même s''il n''est pas aussi porto que le Cheval ' ||
+              'Blanc de 1947, c''est un vin massif, onctueux et visqueux avec une puissance, une richesse et un fruit ' ||
+              'sucré étonnants. Le nez explose du verre, offrant des senteurs de fruits confiturés, de fumée et de ' ||
+              'caramel beurré. La viscosité du vin rappelle celle de l''huile moteur 10-W-40. Il est si doux, si épais ' ||
+              'et si riche qu''une cuillère pourrait tenir debout. Le vin est chargé de fruits oniriques et d''une forte ' ||
+              'teneur en alcool, mais pas de tanins notables. Bien qu''il puisse être consommé aujourd''hui, grâce à son ' ||
+              'incroyable extrait de fruit et à ses niveaux élevés de glycérine et d''alcool, il est capable de durer encore ' ||
+              'deux décennies.',
+ 'Rouge','Pomerol','Gold','01/01/1947','Pomerol');
 
-
-
-INSERT INTO address(postcode,street,country,city) VALUES 
+INSERT INTO address(postcode,street,country,city) VALUES
 ('32800','Saint Armand La Plaine','France','Eauze'),
 ('32250','Château de Pellehaut ','France','Montréal du Gers'),
 ('32110','Domaine JOY','France','Panjas'),
 ('32800','Lieu dit Maubet','France','Noulens'),
 ('32150','Domaine Uby','France','Cazaubon'),
 ('29200','2 avenue de Provence','France','Brest');
-
 
 INSERT INTO users (username,lastname,firstname,password) VALUES
 ('BF','Flageul','Benjamin','bf'),
@@ -214,38 +218,30 @@ INSERT INTO users (username,lastname,firstname,password) VALUES
 ('Boss','Duqueine','Gilles','gd'),
 ('Fifou','Lon','Paul','pl');
 
-
 INSERT INTO client (users,address,mail) VALUES
 ('1','6','benjamin.f@vincesi.fr'),
 ('2','6','hugo.d@vincesi.fr'),
 ('3','6','steven.q@vincesi.fr'),
 ('4','6','samuel.v@vincesi.fr');
 
-
 INSERT INTO employee (users, job) VALUES
 ('5','CEO'),
 ('6','logistician');
 
-
-INSERT INTO supplier (name,address,phone) VALUES 
+INSERT INTO supplier (name,address,phone) VALUES
 ('Société Civile Viticole Château du Tariquet','1','05 62 09 87 82'),
 ('Société Civile Viticole Bérault','2','05 62 29 48 79'),
 ('Joy Sélection','3','05 62 09 03 20'),
 ('Vignoble Fontan','4','05 62 08 55 28'),
 ('Distribution du Domaine d''Uby','5','05 62 09 51 93');
 
-
-
 INSERT INTO orders (orderdate,deliverydate,price) VALUES
 ('02/02/22','04/03/22','70'),
 ('04/02/22','05/03/22','30');
 
-
-
 INSERT INTO orders_join_client (users,orders) VALUES
 ('1','1'),
 ('4','2');
-
 
 INSERT INTO orders_join_product (orders,product,quantity) VALUES
 ('1','1','5'),
@@ -253,8 +249,7 @@ INSERT INTO orders_join_product (orders,product,quantity) VALUES
 ('1','136','8'),
 ('2','5','2');
 
-
-INSERT INTO product_join_supplier (product,supplier) VALUES 
+INSERT INTO product_join_supplier (product,supplier) VALUES
 ('1','1'),
 ('2','1'),
 ('3','1'),
@@ -445,6 +440,9 @@ INSERT INTO product_join_supplier (product,supplier) VALUES
 ('188','5'),
 ('189','5'),
 ('190','5'),
-('191','5');
+('191','5'),
+('192','1'),
+('192','2'),
+('192','5');
 
 
