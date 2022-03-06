@@ -15,6 +15,10 @@ public class ClientImpl extends UsersImpl implements Client {
     this.mail = registrationUser.mail;
   }
 
+  public ClientImpl() {
+
+  }
+
   @Override
   public Address getAddress() {
     return address;
