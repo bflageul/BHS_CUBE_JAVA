@@ -18,7 +18,7 @@ public class Users {
    *
    * @param id
    */
-  public static boolean isIdExist(int id) throws SQLException {
+  public static boolean doesIdExist(int id) throws SQLException {
 
     String query =  "SELECT COUNT(*) FROM users WHERE id = ?;";
 
@@ -176,12 +176,12 @@ public class Users {
   public static Triplet getUserById(int userId) throws SQLException {
 
     String query = "SELECT users.id, users.username, users.firstname, users.lastname, employee.job, " +
-      "mail, postcode, street, country, city, orderdate, deliverydate, price FROM users " +
+      "mail, addressid, postcode, street, country, city, orderid, orderdate, deliverydate, price FROM users " +
       "LEFT JOIN employee ON employee.users = users.id " +
       "LEFT JOIN " +
-      "(SELECT address.postcode AS postcode, address.street AS street, address.country AS country, address.city AS city, mail, orderdate, deliverydate, price, clientId FROM " +
-      "    (SELECT client.mail AS mail, client.users AS clientId, orderdate, deliverydate, price FROM " +
-      "        (SELECT orders.orderdate AS orderdate, orders.deliverydate AS deliverydate, orders.price AS price, orders_join_client.users AS orderClientId FROM orders_join_client " +
+      "(SELECT address.id AS addressid, address.postcode AS postcode, address.street AS street, address.country AS country, address.city AS city, orderid, mail, orderdate, deliverydate, price, clientId FROM " +
+      "    (SELECT client.mail AS mail, client.users AS clientId, orderid, orderdate, deliverydate, price FROM " +
+      "        (SELECT orders.id AS orderid, orders.orderdate AS orderdate, orders.deliverydate AS deliverydate, orders.price AS price, orders_join_client.users AS orderClientId FROM orders_join_client " +
       "        JOIN users ON orders_join_client.users = users.id " +
       "        JOIN orders ON orders_join_client.orders = orders.id) AS orderjoinselection " +
       "    RIGHT JOIN client ON client.users = orderjoinselection.orderClientId) AS clientselection " +
@@ -202,10 +202,12 @@ public class Users {
 
     while (result.next()) {
       if (result.getString("mail") != null) {
+        address.setId(result.getInt("id"));
         address.setPostcode(result.getString("postcode"));
         address.setStreet(result.getString("street"));
         address.setCity(result.getString("city"));
         address.setCountry(result.getString("country"));
+        order.setId(result.getInt("id"));
         order.setOrderdate(result.getDate("orderdate"));
         order.setDeliverydate(result.getDate("deliverydate"));
         order.setPrice(result.getInt("price"));

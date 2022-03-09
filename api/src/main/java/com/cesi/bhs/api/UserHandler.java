@@ -10,6 +10,7 @@ import io.vertx.ext.web.RoutingContext;
 import org.javatuples.Triplet;
 
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.List;
 
 import static com.cesi.bhs.api.dao.Authentication.isUsernameAvailable;
@@ -56,7 +57,7 @@ public class UserHandler {
 //      com.cesi.bhs.api.data.Users userById;
       int id = Integer.parseInt(routingContext.pathParam("id"));
 
-      if (!Users.isIdExist(id)){
+      if (!Users.doesIdExist(id)) {
         routingContext.response()
           .setStatusCode(400)
           .putHeader("content-type", "application/json; charset=utf-8")
@@ -68,6 +69,46 @@ public class UserHandler {
         .setStatusCode(200)
         .putHeader("content-type", "application/json; charset=utf-8")
         .end(Json.encodePrettily(userById));
+    } catch (SQLException e) {
+      e.printStackTrace();
+      routingContext.response()
+        .setStatusCode(500)
+        .putHeader("content-type", "application/json; charset=utf-8")
+        .end(Json.encodePrettily(new SimpleHttpResult(500, "Internal server error")));
+    } catch (DecodeException e) {
+      e.printStackTrace();
+      routingContext.response()
+        .setStatusCode(400)
+        .putHeader("content-type", "application/json; charset=utf-8")
+        .end(Json.encodePrettily(new SimpleHttpResult(400, "Invalid JSON")));
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+      routingContext.response()
+        .setStatusCode(400)
+        .putHeader("content-type", "application/json; charset=utf-8")
+        .end(Json.encodePrettily(new SimpleHttpResult(400, "Body is empty")));
+    }
+  }
+  /**
+   * Routed by GET '/user'
+   */
+  public static void getCurrentUser(RoutingContext routingContext) {
+
+    try {
+      final String authorizationHeader = routingContext.request().getHeader("Authorization");
+      final String token = authorizationHeader.split(" ")[1];
+
+      byte[] decoded = Base64.getDecoder().decode(token);
+      String decodedToken = new String(decoded);
+      String[] splitDecodedMsg = decodedToken.split(":");
+      int idFromToken = Integer.parseInt(splitDecodedMsg[0]);
+
+      Triplet currentUser = Users.getUserById(idFromToken);
+
+      routingContext.response()
+        .setStatusCode(200)
+        .putHeader("content-type", "application/json; charset=utf-8")
+        .end(Json.encodePrettily(currentUser));
     } catch (SQLException e) {
       e.printStackTrace();
       routingContext.response()
@@ -301,7 +342,7 @@ public class UserHandler {
     try {
       int id = Integer.parseInt(routingContext.pathParam("id"));
 
-      if (!Users.isIdExist(id)){
+      if (!Users.doesIdExist(id)) {
         routingContext.response()
           .setStatusCode(400)
           .putHeader("content-type", "application/json; charset=utf-8")
@@ -316,4 +357,5 @@ public class UserHandler {
       e.printStackTrace();
     }
   }
+
 }
