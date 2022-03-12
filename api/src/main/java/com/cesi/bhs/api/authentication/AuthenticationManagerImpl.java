@@ -88,12 +88,10 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
     // Get current date
     Date now = Date.from(Instant.now());
 
-    // Prepare the token string
-    StringBuilder tokenBuilder = new StringBuilder();
-    tokenBuilder.append(user.getId()).append(":").append(user.getUsername()).append(":").append(now.getTime());
-
     // Encode the token
-    String token = Base64.getEncoder().encodeToString(tokenBuilder.toString().getBytes());
+    String token = Base64.getEncoder().encodeToString((user.getId() + ":" + user.getUsername() + ":" + now.getTime()
+      // Encode the token
+    ).getBytes());
 
     tokenMap.put(token, new Pair<>(user, now));
 

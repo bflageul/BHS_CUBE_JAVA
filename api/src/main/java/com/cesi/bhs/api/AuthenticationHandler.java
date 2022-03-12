@@ -11,6 +11,7 @@ import io.vertx.ext.web.RoutingContext;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import static com.cesi.bhs.api.dao.Authentication.getUser;
@@ -39,7 +40,7 @@ public class AuthenticationHandler {
 
       String token = authenticationManager.login(user, loginUser.password);
 
-      if (token == "Token creation failed") {
+      if (Objects.equals(token, "Token creation failed")) {
         routingContext.response()
           .setStatusCode(401)
           .putHeader("content-type", "application/json; charset=utf-8")
@@ -51,7 +52,6 @@ public class AuthenticationHandler {
         .setStatusCode(200)
         .putHeader("content-type", "application/json; charset=utf-8")
         .end("{\"token\": \"" + token + "\"}");
-      return;
     } catch (SQLException e) {
       e.printStackTrace();
       routingContext.response()
@@ -127,13 +127,13 @@ public class AuthenticationHandler {
 
       String registrationResult = authenticationManager.register(client);
 
-      if (registrationResult == "Registration done, please login") {
+      if (Objects.equals(registrationResult, "Registration done, please login")) {
         routingContext.response()
           .setStatusCode(201)
           .putHeader("content-type", "application/json; charset=utf-8")
           .end(Json.encodePrettily(new SimpleHttpResult(200, registrationResult)));
         return;
-      } else if (registrationResult == "Registration failed, internal server error") {
+      } else if (Objects.equals(registrationResult, "Registration failed, internal server error")) {
         routingContext.response()
           .setStatusCode(500)
           .putHeader("content-type", "application/json; charset=utf-8")

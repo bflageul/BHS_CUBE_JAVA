@@ -9,7 +9,7 @@ import io.vertx.ext.web.handler.StaticHandler;
 
 public class MainVerticle extends AbstractVerticle {
   @Override
-  public void start() throws Exception {
+  public void start() {
     // Create a Router
     Router router = Router.router(vertx);
 
@@ -18,29 +18,62 @@ public class MainVerticle extends AbstractVerticle {
 
     // -- Set the routes in the router --
     // Main page
-    router.get("/").handler(routingContext -> {
-      routingContext.response()
-        .putHeader("content-type", "application/json; charset=utf-8")
-        .end("{\n" +
-          "\"body\": \"Welcome on the BHS API, for more information about this please contact BHß Software or NegoSud\",\n" +
-          "\"copyright\": \"BHẞ Software 2022\"\n" +
-          "}");
-    });
+    router.get("/").handler(routingContext -> routingContext.response()
+      .putHeader("content-type", "application/json; charset=utf-8")
+      .end("{\n" +
+        "\"body\": \"Welcome on the BHS API, for more information about this please contact BHß Software or NegoSud\",\n" +
+        "\"copyright\": \"BHẞ Software 2022\"\n" +
+        "}"));
 
     // Authentication Handler routes
     router.post("/login").handler(AuthenticationHandler::login);
     router.post("/login/register").handler(AuthenticationHandler::register);
 
+    // Create User handler routes : token must be checked before all actions on current user
+    router.post("/user").handler(UserHandler::createUser);
+
+    /*
+     * Current User handler routes : token must be checked before all actions on current user
+     */
+    router.get("/user").handler(AuthenticationHandler::checkToken);
+    router.get("/user").handler(UserHandler::getCurrentUser);
+    router.post("/user").handler(UserHandler::createUser);
+
+    /*
+     * User by id handler routes: token must be checked before all actions on specific user
+     */
+    router.get("/user/:id").handler(AuthenticationHandler::checkToken);
+    router.get("/user/:id").handler(UserHandler::getUserById);
+    router.put("/user/:id").handler(AuthenticationHandler::checkToken);
+    router.put("/user/:id").handler(UserHandler::updateUserById);
+
+    // All Users handler routes : token must be checked before rendering all registered users
+    router.delete("/user/:id").handler(AuthenticationHandler::checkToken);
+    router.delete("/user/:id").handler(UserHandler::removeUserById);
+
+    /*
+     * All Users handler routes : token must be checked before rendering all registered users
+     * */
+    router.get("/users").handler(AuthenticationHandler::checkToken);
+    router.get("/users").handler(UserHandler::getAllUsers);
+
     // Demo validation token utilisateur.
     // On vérifie le token
     router.get("/login/validate-token").handler(AuthenticationHandler::checkToken);
-    // Puis si le token est bon cette fonction là est appelé
-    router.get("/login/validate-token").handler(routingContext -> {
-      routingContext.response()
-        .setStatusCode(200)
-        .putHeader("content-type", "application/json; charset=utf-8")
-        .end(Json.encodePrettily(new SimpleHttpResult(200, "Yop salut !👋👋👋👋")));
-    });
+    // Puis si le token est bon cette fonction là est appelée
+    router.get("/login/validate-token").handler(routingContext -> routingContext.response()
+      .setStatusCode(200)
+      .putHeader("content-type", "application/json; charset=utf-8")
+      .end(Json.encodePrettily(new SimpleHttpResult(200, "Yop salut !👋👋👋👋"))));
+
+    // Orders handler routes
+    router.post("/order").handler(OrdersHandler::createOrder);
+    router.put("/order/:id").handler(OrdersHandler::updateOrderById);
+    router.get("/order/:id").handler(OrdersHandler::getOrderById);
+    router.delete("/order/:id").handler(OrdersHandler::deleteOrder);
+    router.get("/orders").handler(OrdersHandler::getAllOrders);
+    router.get("/orders/by-user/:id").handler(OrdersHandler::getOrdersFromUser);
+    router.get("/orders/by-supplier/:id").handler(OrdersHandler::getOrdersToSupplier);
 
     // Serve static resources from the /assets directory
     router.route("/assets/*").handler(StaticHandler.create("assets"));
