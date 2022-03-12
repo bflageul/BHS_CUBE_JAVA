@@ -6,10 +6,8 @@ import com.cesi.bhs.api.data.OrderImpl;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.*;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 
 import static com.cesi.bhs.api.dao.Users.getUserById;
@@ -48,15 +46,15 @@ public class Orders {
 
   public static @NotNull Order getOrderById(int id) throws SQLException {
     Connect connect = ConnectImpl.getInstance();
-    PreparedStatement preparedStatement = connect.getConnection().prepareStatement("SELECT orders.* ," +
+    PreparedStatement preparedStatement = connect.getConnection().prepareStatement("SELECT orders.*, " +
       "ARRAY_AGG(orders_join_product.product) as products, " +
-      "ARRAY_AGG(orders_join_product.quantity) as quantity," +
-      "MIN(orders_join_client.users) as user" +
-      "FROM orders" +
-      "LEFT JOIN orders_join_product ON orders.id = orders_join_product.orders" +
-      "LEFT JOIN orders_join_client ON orders.id = orders_join_client.orders" +
-      "GROUP BY orders.id " +
-      "WHERE id = ?");
+      "ARRAY_AGG(orders_join_product.quantity) as quantity, " +
+      "MIN(orders_join_client.users) as user " +
+      "FROM orders " +
+      "LEFT JOIN orders_join_product ON orders.id = orders_join_product.orders " +
+      "LEFT JOIN orders_join_client ON orders.id = orders_join_client.orders " +
+      "WHERE id = ? " +
+      "GROUP BY orders.id ;");
     preparedStatement.setInt(1, id);
 
     ResultSet resultSet = preparedStatement.executeQuery();
@@ -64,8 +62,8 @@ public class Orders {
     Order order;
 
     resultSet.next();
-    int[] quantity = (int[]) resultSet.getArray("quantity").getArray();
-    int[] products = (int[]) resultSet.getArray("products").getArray();
+    Integer[] quantity = (Integer[]) resultSet.getArray("quantity").getArray();
+    Integer[] products = (Integer[]) resultSet.getArray("products").getArray();
 
     HashMap<Integer, Integer> productQuantity = new HashMap<>();
 
@@ -73,7 +71,7 @@ public class Orders {
       productQuantity.put(products[i], quantity[i]);
     }
 
-    Client client = (Client) getUserById(resultSet.getInt("client"));
+    Client client = (Client) getUserById(resultSet.getInt("user")).getValue0();
 
     order = new OrderImpl(
       resultSet.getInt("id"),
@@ -148,7 +146,7 @@ public class Orders {
         productQuantity.put(products[i], quantity[i]);
       }
 
-      Client client = (Client) getUserById(resultSet.getInt("client"));
+      Client client = (Client) getUserById(resultSet.getInt("client")).getValue0();
 
       orderList.add(new OrderImpl(
         resultSet.getInt("id"),
@@ -191,7 +189,7 @@ public class Orders {
         productQuantity.put(products[i], quantity[i]);
       }
 
-      Client client = (Client) getUserById(resultSet.getInt("client"));
+      Client client = (Client) getUserById(resultSet.getInt("client")).getValue0();
 
       orderList.add(new OrderImpl(
         resultSet.getInt("id"),

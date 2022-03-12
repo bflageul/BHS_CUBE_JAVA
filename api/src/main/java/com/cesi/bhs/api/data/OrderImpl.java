@@ -35,6 +35,10 @@ public class OrderImpl implements Order {
     this.product = createOrder.product;
   }
 
+  public OrderImpl() {
+
+  }
+
   @Override
   public int getId() {
     return id;
