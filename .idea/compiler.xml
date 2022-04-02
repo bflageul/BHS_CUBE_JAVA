@@ -19,7 +19,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="heavycli" options="--add-exports javafx.controls/com.sun.javafx.scene.control.skin=com.negosud.heavycli" />
+      <module name="heavycli" options="" />
     </option>
   </component>
 </project>

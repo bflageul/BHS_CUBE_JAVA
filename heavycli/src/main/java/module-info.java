@@ -10,6 +10,6 @@ module com.negosud.heavycli {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
 
-    opens com.negosud.heavycli to javafx.fxml;
-    exports com.negosud.heavycli;
+    opens com.cesi.bhs.heavycli to javafx.fxml;
+    exports com.cesi.bhs.heavycli;
 }
