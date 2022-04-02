@@ -1,11 +1,11 @@
-package com.cesi.bhs.api.db;
+package com.cesi.bhs.api.data;
 
 /**
  * An Employee user, they can edit the available stock and pass orders to suppliers.
  * Information about what they can do is taken from the job field.
  */
 public interface Employee extends Users {
-  public String getJob();
+  String getJob();
 
-  public void setJob(String job);
+  void setJob(String job);
 }
